@@ -2,11 +2,18 @@ default vezes_investigou = 0
 default saida = 0
 
 label room4:
+  # Desativa o mapa quando o jogador está dentro da casa
+  $ mapa_disponivel = False
   
   scene quartobob
 
-  show batavo1 at left with fade:
-    zoom 1.2
+  show batavo1 at Transform(xzoom=-1):
+    zoom 1.3 xpos 1000 ypos 200 
+  #if saida == 0:  # Se for a primeira vez acordando
+    # Primeiro pensamento ao acordar
+    #"O que... onde estou? Ah, sim... o abacaxi."
+    # Gatilho para o flashback
+    #jump flashback_prisao
 
   "O que eu devo fazer agora?"
 
@@ -80,9 +87,17 @@ label opcoes:
           hide tv quebrada
           jump salabob
     elif escolha =="gary":
+          # Desativa temporariamente o som de digitação
+          $ temp_callbacks = config.all_character_callbacks[:]
+          $ config.all_character_callbacks = []
+          
           play sound "gary1.wav"
           $ renpy.music.set_volume(0.2, channel="sound")
           "Gary" "Meow"
+          
+          # Restaura o sistema de som de digitação
+          $ config.all_character_callbacks = temp_callbacks
+          
           jump salabob     
 
 
@@ -91,7 +106,7 @@ label opcoes:
     jump chegada_em_casa
 
 label salabob:
-
+ # Ainda dentro de casa, mapa continua desativado
  scene bg room4
  
  show batavo1 at Transform(xzoom=-1):
@@ -129,6 +144,8 @@ label salabob:
                 jump opcoes
 
             "Sair":
+                 play sound som_opcao
+                   # Ativa o mapa quando o jogador sai de casa
                  $ saida += 1  # Incrementa a variável a cada clique
                  if saida == 1:
                      jump storymode  # Primeira vez, vai para storymode
@@ -137,13 +154,15 @@ label salabob:
                  if saida == 3:
                      jump day3  # Primeira vez, vai para storymode    
                  if saida == 4:
-                     jump sandy  # Primeira vez, vai para storymode    
-                 if saida == 5:
-                     jump barg  # Primeira vez, vai para storymode        
+                     jump landal  # Primeira vez, vai para storymode       
                  else:
-                     call screen mapScreen # Da segunda vez em diante, mostra a tela
+                     $ mapa_disponivel = True
+                     call screen bobCasas # Da segunda vez em diante, mostra a tela
 
 label casanoite:
+ # Quando volta para casa à noite, desativa o mapa novamente
+ $ mapa_disponivel = False
+ 
  scene quartobob
 
  show batavo1 at left with fade:
@@ -155,5 +174,7 @@ label casanoite:
 
 
 label end1:
-
+   # Ativa o mapa ao sair e mostrar as casas
+   $ mapa_disponivel = True
+   
    call screen bobCasas

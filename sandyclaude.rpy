@@ -1,5 +1,6 @@
 # sandy.rpy - Arquivo principal da Sandy
 # Importa os diálogos e sequências do arquivo sandy_talks.rpy
+# As funções sexuais foram movidas para sandyfucks.rpy
 
 # Define o personagem Sandy
 define sd = Character("Sandy Bucetas", who_color="#ff69b4")
@@ -17,7 +18,7 @@ default vezes_cuzinho = 0  # Contador para as vezes que o jogador comeu o cuzinh
 default vezes_boquete = 0  # Contador para as vezes que Sandy deu um boquete
 default vezes_foder_buceta = 0  # Contador para as vezes que o jogador fodeu a buceta
 default vezes_nozes_cuzinho = 0  # Contador para as vezes que o jogador enfiou nozes no cuzinho
-default ultimo_dia_acao_sexual = -1  # Guarda o valor da variável 'saida' quando uma ação sexual foi realizada
+default ultimo_dia_acao_sexual = -1  # Guarda o valor da variável 'dia' quando uma ação sexual foi realizada
 
 # Função para atualizar o nível de interesse com base nos pontos
 init python:
@@ -56,82 +57,95 @@ label mostrar_menu_sandy:
         "Oferecer um presente":
             jump presentear_sandy
         
-        # Ver peitos - Modificado para mostrar (3/3) quando maximizado
+        # Ver peitos - Mantido no menu principal
         "Ver os peitos dela ([min(vezes_mostrou_peitos, 3)]/3)" if nivel_interesse_sandy >= 1:
-            if vezes_mostrou_peitos < 3 and ultimo_dia_acao_sexual == saida:
+            if vezes_mostrou_peitos < 3 and ultimo_dia_acao_sexual == dia:
                 show sandy seducao at center
                 $ dialogo = obter_dialogo_recusa()
                 sd "[dialogo]"
                 jump mostrar_menu_sandy
             else:
                 jump ver_peitos_sandy
-            
-        # Punheta - Sempre contagem limitada (não é exibicionista)
-        "Pedir uma punheta ([min(vezes_punheta, 3)]/3)" if nivel_interesse_sandy >= 3:
-            if ultimo_dia_acao_sexual == saida:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump mostrar_menu_sandy
-            else:
-                jump punheta_sandy
-            
-        # Ver buceta - Modificado para mostrar (3/3) quando maximizado
+        
+        # Ver buceta - Mantido no menu principal
         "Ver a buceta dela ([min(vezes_mostrou_buceta, 3)]/3)" if nivel_interesse_sandy >= 5 and vezes_punheta >= 3:
-            if vezes_mostrou_buceta < 3 and ultimo_dia_acao_sexual == saida:
+            if vezes_mostrou_buceta < 3 and ultimo_dia_acao_sexual == dia:
                 show sandy seducao at center
                 $ dialogo = obter_dialogo_recusa()
                 sd "[dialogo]"
                 jump mostrar_menu_sandy
             else:
                 jump ver_buceta_sandy
-                
-        # Boquete - nível 7 - Mantém restrição por dia
-        "Receber um boquete ([min(vezes_boquete, 3)]/3)" if nivel_interesse_sandy >= 7:
-            if ultimo_dia_acao_sexual == saida:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump mostrar_menu_sandy
-            else:
-                jump boquete_sandy
-                
-        # Foder a bucetinha - nível 10 - Mantém restrição por dia
-        "Foder a bucetinha dela ([min(vezes_foder_buceta, 3)]/3)" if nivel_interesse_sandy >= 10:
-            if ultimo_dia_acao_sexual == saida:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump mostrar_menu_sandy
-            else:
-                jump foder_buceta_sandy
         
-        # Enfiar nozes no cuzinho - nível 15 e precisa ter o item nozes
-        "Enfiar nozes no cuzinho dela" if nivel_interesse_sandy >= 15:
-            if ultimo_dia_acao_sexual == saida:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump mostrar_menu_sandy
-            elif 3 not in inventario:
-                show sandy normal at center
-                sd "Você precisa comprar nozes primeiro, seu bobinho!"
-                jump mostrar_menu_sandy
-            else:
-                jump nozes_cuzinho_sandy
-        
-        # Comer o cuzinho - agora só aparece no nível 20 - Mantém restrição por dia
-        "Comer o cuzinho dela ([min(vezes_cuzinho, 3)]/3)" if nivel_interesse_sandy >= 20:
-            if ultimo_dia_acao_sexual == saida:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump mostrar_menu_sandy
-            else:
-                jump comer_cuzinho
+        # Submenu para favores sexuais (APENAS as ações de sexo)
+        "Favores sexuais" if nivel_interesse_sandy >= 3:
+            jump menu_favores_sexuais
             
         "Sair":
             jump sair_da_sandy
+
+# Submenu para favores sexuais (APENAS ações de sexo, não mostra peitos/buceta)
+label menu_favores_sexuais:
+    menu:
+        "Que favor sexual você deseja?"
+                
+        # Punheta - Disponível no nível 3+
+        "Pedir uma punheta ([min(vezes_punheta, 3)]/3)" if nivel_interesse_sandy >= 3:
+            if ultimo_dia_acao_sexual == dia:
+                show sandy seducao at center
+                $ dialogo = obter_dialogo_recusa()
+                sd "[dialogo]"
+                jump menu_favores_sexuais
+            else:
+                jump punheta_sandy
+                
+        # Boquete - Disponível no nível 7+
+        "Receber um boquete ([min(vezes_boquete, 3)]/3)" if nivel_interesse_sandy >= 7:
+            if ultimo_dia_acao_sexual == dia:
+                show sandy seducao at center
+                $ dialogo = obter_dialogo_recusa()
+                sd "[dialogo]"
+                jump menu_favores_sexuais
+            else:
+                jump boquete_sandy
+                
+        # Foder a bucetinha - Disponível no nível 10+
+        "Foder a bucetinha dela ([min(vezes_foder_buceta, 3)]/3)" if nivel_interesse_sandy >= 10:
+            if ultimo_dia_acao_sexual == dia:
+                show sandy seducao at center
+                $ dialogo = obter_dialogo_recusa()
+                sd "[dialogo]"
+                jump menu_favores_sexuais
+            else:
+                jump foder_buceta_sandy
+        
+        # Enfiar nozes no cuzinho - Disponível no nível 15+ se tiver nozes no inventário
+        "Enfiar nozes no cuzinho dela" if nivel_interesse_sandy >= 15:
+            if ultimo_dia_acao_sexual == dia:
+                show sandy seducao at center
+                $ dialogo = obter_dialogo_recusa()
+                sd "[dialogo]"
+                jump menu_favores_sexuais
+            elif 3 not in inventario:
+                show sandy normal at center
+                sd "Você precisa comprar nozes primeiro, seu bobinho!"
+                jump menu_favores_sexuais
+            else:
+                jump nozes_cuzinho_sandy
+        
+        # Comer o cuzinho - Disponível apenas no nível 20+
+        "Comer o cuzinho dela ([min(vezes_cuzinho, 3)]/3)" if nivel_interesse_sandy >= 20:
+            if ultimo_dia_acao_sexual == dia:
+                show sandy seducao at center
+                $ dialogo = obter_dialogo_recusa()
+                sd "[dialogo]"
+                jump menu_favores_sexuais
+            else:
+                jump comer_cuzinho
+        
+        # Opção para voltar ao menu principal
+        "Voltar":
+            jump mostrar_menu_sandy
 
 # Saída da casa da Sandy
 label sair_da_sandy:
@@ -265,256 +279,6 @@ label presentear_sandy:
         $ inventario.remove(result)
         $ money += 5  # Pequena bonificação por dar um presente
         $ atualizar_nivel_interesse()  # Atualiza o nível de interesse com base nos pontos
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Ver os peitos da Sandy (nível 1+) - MODIFICADO para uso ilimitado após 3 vezes
-label ver_peitos_sandy:
-    # Marcar que uma ação sexual foi realizada hoje (apenas se ainda não atingiu 3 vezes)
-    if vezes_mostrou_peitos < 3:
-        $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    # Modificação: use o mínimo entre vezes_mostrou_peitos e 2 para manter o máximo em 3
-    $ indice = min(vezes_mostrou_peitos, 2)
-    $ sequencia = obter_sequencia_peitos(indice)
-    
-    show sandy envergonhada at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    # Incrementa o contador apenas se ainda não atingiu 3
-    if vezes_mostrou_peitos < 3:    
-        $ vezes_mostrou_peitos += 1
-        
-        # Bonus de pontos apenas na terceira vez
-        if vezes_mostrou_peitos == 3:
-            "Você já viu os peitos da Sandy 3 vezes! Ela está muito mais confortável com você agora."
-            $ pontos_interesse_sandy += 20
-            $ atualizar_nivel_interesse()
-            "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Pedir uma punheta (nível 3+) - Mantém restrição por dia
-label punheta_sandy:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    $ indice = min(vezes_punheta, 2)
-    $ sequencia = obter_sequencia_punheta(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    $ vezes_punheta += 1
-    
-    if vezes_punheta == 3:
-        "Sandy já te deu 3 punhetas! Ela está muito mais confortável com intimidades agora."
-        $ pontos_interesse_sandy += 15
-        $ atualizar_nivel_interesse()
-        "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Ver a buceta da Sandy (nível 5+ e após 3 punhetas) - MODIFICADO para uso ilimitado após 3 vezes
-label ver_buceta_sandy:
-    # Marcar que uma ação sexual foi realizada hoje (apenas se ainda não atingiu 3 vezes)
-    if vezes_mostrou_buceta < 3:
-        $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    # Modificação: use o mínimo entre vezes_mostrou_buceta e 2 para manter o máximo em 3
-    $ indice = min(vezes_mostrou_buceta, 2)
-    $ sequencia = obter_sequencia_buceta(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    # Incrementa o contador apenas se ainda não atingiu 3
-    if vezes_mostrou_buceta < 3:    
-        $ vezes_mostrou_buceta += 1
-        
-        # Bonus de pontos apenas na terceira vez
-        if vezes_mostrou_buceta == 3:
-            "Você já viu a buceta da Sandy 3 vezes! Seu relacionamento com ela está cada vez mais íntimo."
-            $ pontos_interesse_sandy += 25
-            $ atualizar_nivel_interesse()
-            "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Boquete (nível 7) - Mantém restrição por dia
-label boquete_sandy:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    $ indice = min(vezes_boquete, 2)
-    $ sequencia = obter_sequencia_boquete(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    $ vezes_boquete += 1
-    
-    if vezes_boquete == 3:
-        "Sandy já te deu 3 boquetes! Ela está se tornando muito habilidosa nisso."
-        $ pontos_interesse_sandy += 25
-        $ atualizar_nivel_interesse()
-        "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Foder a bucetinha (nível 10) - Mantém restrição por dia
-label foder_buceta_sandy:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    $ indice = min(vezes_foder_buceta, 2)
-    $ sequencia = obter_sequencia_foder_buceta(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    $ vezes_foder_buceta += 1
-    
-    if vezes_foder_buceta == 3:
-        "Você já fodeu a buceta da Sandy 3 vezes! Vocês estão em perfeita sintonia."
-        $ pontos_interesse_sandy += 35
-        $ atualizar_nivel_interesse()
-        "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    $ pontos_interesse_sandy += 15
-    $ atualizar_nivel_interesse()
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Enfiar nozes no cuzinho (nível 15) - Mantém restrição por dia
-label nozes_cuzinho_sandy:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme vez
-    $ indice = min(vezes_nozes_cuzinho, 2)
-    $ sequencia = obter_sequencia_nozes_cuzinho(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    $ vezes_nozes_cuzinho += 1
-    
-    # Remove uma noz do inventário
-    $ inventario.remove(3)
-    $ pontos_interesse_sandy += 20
-    $ atualizar_nivel_interesse()
-    
-    if vezes_nozes_cuzinho == 1:
-        "Sandy está explorando novos prazeres com você!"
-        "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Comer o cuzinho da Sandy (nível 20) - Mantém restrição por dia
-label comer_cuzinho:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = saida
-    
-    # Obter a sequência de diálogos conforme progresso
-    $ indice = min(vezes_cuzinho, 2)
-    $ sequencia = obter_sequencia_cuzinho(indice)
-    
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos
-    $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
-        if quem_fala == "sd":
-            sd "[texto]"
-        elif quem_fala == "bob":
-            bob "[texto]"
-        else:
-            "[texto]"
-        $ i += 1
-    
-    $ vezes_cuzinho += 1
-    
-    if vezes_cuzinho == 3:
-        "Você já comeu o cuzinho da Sandy 3 vezes! Sua relação atingiu o nível máximo de intimidade."
-        $ pontos_interesse_sandy += 30
-        $ atualizar_nivel_interesse()
-        "O nível de interesse da Sandy aumentou para [nivel_interesse_sandy]!"
-    
-    $ pontos_interesse_sandy += 15
-    $ atualizar_nivel_interesse()
     
     jump finalizar_sandy  # Vai para o final da interação
 

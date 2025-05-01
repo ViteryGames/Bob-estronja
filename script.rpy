@@ -1,4 +1,50 @@
+# Define os sons que você quer tocar durante a digitação
+define audio.typing = "bubbles.mp3"  # Som para diálogos de personagens
+define audio.narration = "generic.mp3"  # Som para narração/texto sem personagem
 
+# Código para controlar o som de digitação
+init python:
+    # Variável global para controlar se o som está tocando
+    typing_sound_playing = False
+    
+    # Função para iniciar e parar o som durante a digitação
+    def typing_sound_callback(event, **kwargs):
+        global typing_sound_playing
+        
+        if event == "show":
+            # Inicia o som quando o texto começa a ser mostrado
+            renpy.music.play(audio.typing, channel="sound", loop=True)
+            typing_sound_playing = True
+        
+        elif event == "slow_done" or event == "end":
+            # Para o som quando toda a digitação termina
+            if typing_sound_playing:
+                renpy.music.stop(channel="sound")
+                typing_sound_playing = False
+    
+    # Função para callback de narração (textos sem personagem)
+    def narration_sound_callback(event, **kwargs):
+        global typing_sound_playing
+        
+        if event == "show":
+            # Inicia o som quando o texto começa a ser mostrado
+            renpy.music.play(audio.narration, channel="sound", loop=True)
+            typing_sound_playing = True
+        
+        elif event == "slow_done" or event == "end":
+            # Para o som quando toda a digitação termina
+            if typing_sound_playing:
+                renpy.music.stop(channel="sound")
+                typing_sound_playing = False
+
+# Definindo o narrador com o callback de narração
+define narrator = Character(None, callback=narration_sound_callback)
+
+# Configure o callback para ser chamado nos eventos de texto de personagens
+init python:
+    config.all_character_callbacks.append(typing_sound_callback)
+
+# Resto do código original...
 image fundo_dia = "fundo_dia.jpg"
 image fundo_noite = "fundo_noite.jpg"
 
@@ -12,17 +58,17 @@ label mostrar_fundo():
 
 label inicio:
     call mostrar_fundo
-    "Está amanhecendo."
+    "Está amanhecendo."  # Vai usar generic.mp3
     
-    "Você quer esperar ou continuar?"
+    "Você quer esperar ou continuar?"  # Vai usar generic.mp3
     
     menu:
         "Esperar":
             $ hora_do_dia += 6  # Passa 6 horas
             call mostrar_fundo
-            "Agora são [hora_do_dia] horas."
+            "Agora são [hora_do_dia] horas."  # Vai usar generic.mp3
         "Continuar":
-            "Você seguiu em frente."
+            "Você seguiu em frente."  # Vai usar generic.mp3
 
     return
 
@@ -61,13 +107,13 @@ default nugget = False
 default mainmap = False
 default money = 0
 default macaca = False
-define p = "Pautrick Estrela"
-define bs = "Bob Esporra"
+define p = Character("Pautrick Estrela", callback=typing_sound_callback)
+define bs = Character("Bob Esporra", callback=typing_sound_callback)
 $ money = 0 
 default sala_mensagem_exibida = False
-default hora_do_dia = 14  # Começa às 6 da manhã
+default hora_do_dia = 8  # Começa às 6 da manhã
 define som_opcao = "open.wav"
-
+default mapa_disponivel = False
 
 
 
@@ -76,11 +122,11 @@ define som_opcao = "open.wav"
 label cutscene:
   scene cuts1
 
-  "Bob Esponja" "Turururu"
+  "Bob Esponja" "Turururu"  # Vai usar bubbles.mp3 porque tem nome de personagem
 
   show cuts2
 
-  "Bob Esponja" "AHHHHHHHHHHH"
+  "Bob Esponja" "AHHHHHHHHHHH"  # Vai usar bubbles.mp3 porque tem nome de personagem
   
   show screen xerequinha 
 
@@ -170,5 +216,3 @@ if mainmap = True:
 
     
 return
-
-

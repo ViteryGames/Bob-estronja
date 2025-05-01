@@ -2,8 +2,12 @@
 default bob_desmaiado = False
 default dialogo_inicial_exibido = False
 default saida_quando_desmaiou = 0
+default dia = 1  # Nova variável para contar os dias
 
 label capturados:
+  # Desabilita o mapa durante toda a cena noturna
+  $ mapa_disponivel = False
+  
   scene locker
 
   # Verifica se Bob está desmaiado
@@ -147,16 +151,26 @@ label opbob1_menu_opcoes:
       jump quanaite
          
 label quanaite:
+ $ mapa_disponivel = False
+ # O mapa continua indisponível em quanaite
  scene quartobob noite 
 
  show batavo1 at Transform(xzoom=-1):
     zoom 1.3 xpos 900 ypos 200 
   
-
  menu:  
     "Dormir":
-     $ hora_do_dia -= 12
-    
+     # Aqui é onde aumentamos a variável dia
+     scene black with fade
+     "Você dorme profundamente..."
+     
+     $ dia += 1  # Incrementa a variável dia
+     $ hora_do_dia = 8      # Isso define o horário para 8:00 da manhã
+      # Reabilita o mapa quando o jogador acorda
+     
+     scene quartobob with fade
+     "Você acorda. São 8 horas da manhã do dia [dia]."  # Mostra o dia atual
+     
      jump room4
        
     "Falar com bob bicha":
@@ -166,13 +180,15 @@ label quanaite:
       jump janela
 
 label janela: 
-  scene window 
+  $ mapa_disponivel = False
+  # O mapa continua indisponível
+  scene rua1
   
   $ renpy.pause(1)
 
   # Se estiver pelo menos na noite 2
   if saida >= 2:
-    show pautrick
+    show rua1
 
     # Verifica se já viu a prostituta pela janela hoje
     if not hasattr(store, "viu_prostituta_janela_dia_{}".format(saida)):
@@ -181,13 +197,31 @@ label janela:
     $ viu_hoje = getattr(store, "viu_prostituta_janela_dia_{}".format(saida))
     
     if not viu_hoje and not getattr(store, "visitou_puta_dia_{}".format(saida), False):
+        show ruap with fade
+
         "Você vê uma prostituta aguardando no ponto de ônibus."
         # Marca como visto hoje
         $ setattr(store, "viu_prostituta_janela_dia_{}".format(saida), True)
+        
+        # Adicione o novo menu aqui
+        menu:
+            "Assobiar para chamar a puta":
+                "Você assobia alto e agita os braços para chamar a atenção dela."
+                "A prostituta olha para sua janela e sorri maliciosamente."
+                "Ela atravessa a rua e vem em direção à sua casa."
+                scene quartobob noite
+                "Alguns minutos depois..."
+                # O mapa continua indisponível quando vai para comcumbinas
+                # A classe comcumbinas já tem seu próprio controle de mapa
+                jump comcumbinas
+                
+            "Voltar":
+                "Você decide não chamar atenção e volta para dentro."
+                jump quanaite
     else:
         "Não há nada de interessante lá fora."
+        jump quanaite
     
-    jump comcumbinas
   # Se for antes da noite 2
   else:
     "Não tem ninguem la fora"     

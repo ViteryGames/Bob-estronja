@@ -1,3 +1,13 @@
+# Definição da animação no início do arquivo
+image keket_sally_anim:
+    "keket sally"
+    pause 0.3
+    "keket sally 2"
+    pause 0.3
+    "keket sally 3"
+    pause 0.3
+    repeat
+
 label comcumbinas:
     # Verifica se a variável 'visitou_puta' para o dia atual já existe
     # Se não existir, cria com valor False
@@ -12,7 +22,7 @@ label comcumbinas:
         "Não tem ninguém lá fora."
         jump quanaite
     else:
-        scene areia
+        scene quartobob noite
 
         show puta sally
 
@@ -20,6 +30,7 @@ label comcumbinas:
         jump sou_puta
 
 label sou_puta:
+
     menu:
         "Boquete $15":
             if money >= 15:
@@ -31,21 +42,31 @@ label sou_puta:
                 jump sou_puta
                 
         "Vagina $30":
-            if money >= 30:
+            # Verificar se possui camisinha E dinheiro suficiente
+            if money >= 30 and 14 in inventario:
                 $ escolha = "pussy"
                 $ money -= 30
+                $ inventario.remove(14)  # Remove a camisinha do inventário
                 jump putitas
-            else:
+            elif money < 30:
                 "Você não possui moedas suficientes. São necessárias 30 moedas."
+                jump sou_puta
+            else:
+                "Você precisa ter uma camisinha para esta opção. Compre uma na loja primeiro."
                 jump sou_puta
                 
         "Cuzin $60":
-            if money >= 60:
+            # Verificar se possui camisinha E dinheiro suficiente
+            if money >= 60 and 14 in inventario:
                 $ escolha = "cuzin"
                 $ money -= 60
+                $ inventario.remove(14)  # Remove a camisinha do inventário
                 jump putitas
-            else:
+            elif money < 60:
                 "Você não possui moedas suficientes. São necessárias 60 moedas."
+                jump sou_puta
+            else:
+                "Você precisa ter uma camisinha para esta opção. Compre uma na loja primeiro."
                 jump sou_puta
         
         "Conversar (Grátis)":
@@ -54,8 +75,10 @@ label sou_puta:
 
 label putitas:
     if escolha == "quequet":
-        show keket sally:
-            zoom 0.6 xpos 1000 ypos 400
+        show keket_sally_anim:
+            zoom 1.0  # Tamanho maior
+            xalign 0.5  # Centraliza horizontalmente (centro da tela)
+            yalign 0.5  # Centraliza verticalmente (meio da tela)
         "Puta Piranha" "Vou te chupar bem gostoso agora seu safado"
         
         "Puta Piranha" "Hmm, nunca chupei uma esponja antes... você tem um gosto único!"
@@ -72,20 +95,51 @@ label putitas:
         
         "Puta Piranha" "Você está gostando? Nunca imaginei que o Bob Esponja fosse tão... intenso."
         
-        b "Vou gozar, porra! Engole tudo, sua vadia!"
+        # Menu para escolher onde gozar
+        menu:
+            "Gozar na boca":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar, porra! Engole tudo, sua vadia!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Hmm... que gosto diferente! Nunca provei nada parecido!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Continua chupando! Ainda não acabei, cacete!"
+                
+                "Puta Piranha" "Uau! Nunca vi tanto... hm... 'líquido de esponja' antes! Como você consegue produzir tanto?"
+            
+            "Gozar na cara":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar na sua cara, vadia! Se prepara!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Ai, está entrando no meu olho! Arde!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Cala a boca e continua! Quero te deixar toda melada!"
+                
+                "Puta Piranha" "Meu Deus, quanta coisa! Vou precisar de um banho depois disso..."
         
-        "Puta Piranha" "Uau! Nunca vi tanto... hm... 'líquido de esponja' antes!"
-        
-        hide keket sally
+        hide keket_sally_anim
         
         menu:
             "Voltar para o quarto":
                 # Marca como visitado para o dia atual
+                $ hora_do_dia += 2 
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite
         
     elif escolha == "pussy":
         sd "Come minha buceta seu gordo tarado!"
+        
+        "Puta Piranha" "Ainda bem que você trouxe camisinha! Segurança em primeiro lugar!"
         
         "Puta Piranha" "Isso, enfia tudo! Quem diria que uma esponja teria esse equipamento todo!"
         
@@ -101,21 +155,50 @@ label putitas:
         
         "Puta Piranha" "Nossa, estou sentindo você pulsar dentro de mim... você está diferente do que imaginei!"
         
-        b "Vou gozar dentro dessa buceta! Se prepare, vadia!"
-        
-        "Puta Piranha" "Vai, goza dentro! Quero sentir todo seu líquido de esponja!"
-        
-        "Game over"
+        # Menu para escolher onde gozar
+        menu:
+            "Gozar dentro":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar dentro dessa buceta! Se prepare, vadia!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Isso! Enche toda minha bucetinha!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Caralho! Toma tudo, sua piranha!"
+                
+                "Puta Piranha" "Meu Deus! Estou sentindo escorrer pelas minhas pernas... nunca vi tanta porra assim!"
+            
+            "Gozar fora":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou tirar e gozar em você! Quero te encher de porra!"
+                
+                # Segunda gozada com shake  
+                with hpunch
+                "Puta Piranha" "Isso, jorra tudo em mim! Me deixa toda melada!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Toma, sua vagabunda! Olha quanta porra!"
+                
+                "Puta Piranha" "Nossa! Você é uma máquina de produzir... nunca vi nada igual!"
         
         menu:
             "Voltar para o quarto":
                 # Marca como visitado para o dia atual
+                $ hora_do_dia += 2 
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite
         
     elif escolha == "cuzin":
         show kradeath
         sd "To com o cuzin coçando pra vc!!!"
+        
+        "Puta Piranha" "Ainda bem que você trouxe camisinha! No cuzinho é ainda mais importante!"
         
         "Puta Piranha" "Isso, mete tudo no meu cuzinho! Uma esponja como você deve saber como limpar todos os cantinhos!"
         
@@ -131,15 +214,42 @@ label putitas:
         
         "Puta Piranha" "Tá... tá bom! Ai, isso! Achou o ponto certo! Continua assim!"
         
-        b "Vou gozar nesse cu apertado! Segura firme, cachorra!"
-        
-        "Puta Piranha" "Enche meu cuzinho! Quero sentir tudo!"
-        
-        "Game over"
+        # Menu para escolher onde gozar
+        menu:
+            "Gozar dentro":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar nesse cu apertado! Segura firme, cachorra!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Meu Deus! Eu consigo sentir jorrando dentro de mim!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Ainda não acabou! Toma mais, vadia!"
+                
+                "Puta Piranha" "Nossa! Você está me enchendo! Como consegue produzir tanto assim?"
+            
+            "Gozar fora":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou tirar e gozar nas suas costas! Se prepara!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Isso! Me enche de porra! Quero sentir tudo!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Toma mais, sua vadia! Olha quanto leite!"
+                
+                "Puta Piranha" "Meu Deus! Você parece uma mangueira de tanta coisa que sai daí!"
         
         menu:
             "Voltar para o quarto":
                 # Marca como visitado para o dia atual
+                $ hora_do_dia += 2 
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite
         
@@ -165,13 +275,42 @@ label putitas:
         
         "Puta Piranha" "Tudo bem, tudo bem! Não precisa ficar nervoso..."
         
-        b "Vai logo, caralho! Tenho coisas mais importantes pra fazer depois!"
-        
-        "Game over"
+        # Menu para escolher onde gozar
+        menu:
+            "Gozar na boca":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar na sua boca! Abre bem, cachorra!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Hmm... tem gosto de... algas marinhas?"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Engole tudo! Não deixa cair uma gota!"
+                
+                "Puta Piranha" "Nunca vi ninguém gozar tanto assim! Você é uma máquina de produção!"
+            
+            "Gozar na cara":
+                # Primeira gozada com shake
+                with hpunch
+                b "Vou gozar na sua cara toda! Se prepara!"
+                
+                # Segunda gozada com shake
+                with hpunch
+                "Puta Piranha" "Nossa! Está espirando para todo lado!"
+                
+                # Terceira gozada com shake
+                with hpunch
+                b "Toma mais, sua safada! Fica bem melada!"
+                
+                "Puta Piranha" "Meu Deus! Vou precisar de um banho agora! Tem até no meu cabelo!"
         
         menu:
             "Voltar para o quarto":
                 # Marca como visitado para o dia atual
+                $ hora_do_dia += 2 
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite
                 
@@ -254,5 +393,6 @@ label putitas:
                 
             "Voltar para o quarto":
                 # Marca como visitado para o dia atual
+                $ hora_do_dia += 2 
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite

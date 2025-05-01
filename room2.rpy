@@ -1,5 +1,21 @@
 define lu = "Lula Pirusco"
 default cozinha_mensagem = False
+default contador_agridoce = 0  # Contador para ordenhar água-viva
+default molho_agridoce_desbloqueado = False  # Controla se o molho agridoce está desbloqueado
+
+# Imagens para a animação de ordenha
+image ordenha_frame1 = "images/ordenha1.png"
+image ordenha_frame2 = "images/ordenha2.png"
+image ordenha_frame3 = "images/ordenha3.png"
+
+# Caso as imagens não existam, criamos placeholders
+init python:
+    if not renpy.loadable("images/ordenha1.png"):
+        renpy.image("ordenha_frame1", Solid("#FF80BF", xsize=300, ysize=300))
+    if not renpy.loadable("images/ordenha2.png"):
+        renpy.image("ordenha_frame2", Solid("#FFA0CF", xsize=320, ysize=320))
+    if not renpy.loadable("images/ordenha3.png"):
+        renpy.image("ordenha_frame3", Solid("#FFB0DF", xsize=340, ysize=340))
 
 label room2:
   scene kk
@@ -7,12 +23,12 @@ label room2:
 
   define k = "Seu siririca"
   
-  show krab a at center with fade:
+  show krab a at center with hpunch:
      zoom 0.75
 
   k "BOB ESPONJA!!!" 
 
-  k"Posso saber onde vc estava?"
+  k "Posso saber onde vc estava?"
   menu:
       "Não sou o Bob Esponja. O verdadeiro ta amarrado em casa.":
        $escolha = "truth"
@@ -43,17 +59,17 @@ label siricas:
      show krab happy:
         zoom 0.6 xpos 1000 ypos 400
 
-     k"Tudo bem rapaz sem problemas"
+     k "Tudo bem rapaz sem problemas"
 
-     k"Já tive sua idade um dia, uma punhetinha aumenta na produtividade"
+     k "Já tive sua idade um dia, uma punhetinha aumenta na produtividade"
 
-     k"Mas me avisa na próxima vez para evitar problemas ok?! Não seja igual o Rola Molusco que passa horas no banheiro..."
+     k "Mas me avisa na próxima vez para evitar problemas ok?! Não seja igual o Rola Molusco que passa horas no banheiro..."
 
      hide patrick2
   elif escolha == "comituamae":
          show kradeath
 
-         k"VAI TOMA NO CUUUU BOB ESPORRAAAA!!!"
+         k "VAI TOMA NO CUUUU BOB ESPORRAAAA!!!"
 
          "Game over"
 
@@ -62,23 +78,23 @@ label siricas:
        show krab4:
         zoom 0.6 xpos 1000 ypos 400 
 
-       k"Puta merda..."
+       k "Puta merda..."
   elif escolha == "gary":
        show krab4:
         zoom 0.5 xpos 1000 ypos 520 
 
-       k"Puxa rapaz que pena..."
+       k "Puxa rapaz que pena..."
 
        show krab4:
         zoom 0.5 xpos 1000 ypos 520  
 
-       k"Que tal fritar uns hamburgueres de siri para se sentir melhor?"
+       k "Que tal fritar uns hamburgueres de siri para se sentir melhor?"
 
 label cozinha:
+  # Esconder a interface xerequinha durante a cozinha
+  hide screen xerequinha
   
   scene kitchen 
-
-
 
   show batavo1 at Transform(xzoom=-1):
     zoom 1.5 xpos 700 ypos 30
@@ -91,17 +107,155 @@ label cozinha:
          $ cozinha_mensagem = True 
 
       menu:
-            #"Se masturbar":
-               # $ escolha = "quarto"
-               # jump opcoes
-
             "Adcionar um molho secreto":
                 $ escolha = "gozo"
                 jump chapa
 
+            "Cozinhar com molho agridoce de água-viva" if 21 in inventario:
+                $ escolha = "agridoce"
+                jump ordenhar_aguaviva
+
+            "Cozinhar com geleia de água-viva" if 23 in inventario:
+                $ escolha = "geleia"
+                jump chapa_geleia
+                
+            "Cozinhar com molho especial e abacaxi" if 19 in inventario:
+                $ escolha = "abacaxi"
+                jump chapa_abacaxi
+
             "Cozinhar um hamburguer de siri normal":
                 $ escolha = "burguer"
                 jump chapa
+
+# Label para cozinhar com molho especial e abacaxi
+label chapa_abacaxi:
+    play audio "grelha.mp3" fadein 2.0
+
+    show chapa
+
+    "Você adiciona o molho secreto e fatias de abacaxi fresco aos hambúrgueres."
+    "O aroma agridoce é simplesmente irresistível!"
+    
+    # Remover um abacaxi do inventário
+    $ inventario.remove(19)
+    
+    pause(5)
+    
+    hide chapa
+    
+    "Seis horas depois" 
+    $ hora_do_dia += 6
+    
+    pause(2)
+    
+    show kk night
+    
+    show krab happy:
+        zoom 0.6 xpos 1000 ypos 400
+    
+    k "CARAMBA, Bob Esponja!! Esses hambúrgueres estão DIVINOS!"
+    k "O abacaxi deu um toque especial... tão docinho... TÃO LUCRATIVO!"
+    k "Os clientes estão pagando o dobro só para comer mais desses!"
+    
+    $ money += 40
+    "Você recebeu 40 dólares pelo hambúrguer com abacaxi!"
+    
+    stop music fadeout 3.0 
+    $ hora_do_dia = 20
+    
+    # Mostrar a tela xerequinha antes de sair
+    show screen xerequinha
+    
+    # Sair usando a label existente
+    jump quanaite
+
+# Label para ordenhar a água-viva para fazer o molho agridoce
+label ordenhar_aguaviva:
+    scene kitchen
+    
+    "Você pega uma água-viva do seu bolso e se prepara para extrair seu molho agridoce."
+    "Clique 20 vezes na água-viva para ordenhá-la."
+    
+    $ contador_agridoce = 0
+    
+    # Tela para clicar na água-viva
+    screen ordenhar_screen():
+        modal True
+        
+        frame:
+            xalign 0.5
+            yalign 0.5
+            padding (20, 20)
+            
+            vbox:
+                spacing 10
+                text "Ordenhar: [contador_agridoce]/20" size 30 xalign 0.5
+                
+                imagebutton:
+                    idle "ordenha_frame1"
+                    hover "ordenha_frame2"
+                    selected_idle "ordenha_frame3"
+                    action [SetVariable("contador_agridoce", contador_agridoce + 1), 
+                            Show("ordenhar_screen") if contador_agridoce < 19 else Hide("ordenhar_screen")]
+                    selected contador_agridoce % 3 == 2
+                    xalign 0.5
+    
+    # Mostrar a tela de ordenha
+    show screen ordenhar_screen
+    
+    # Pausar até que o jogador complete os 20 cliques
+    $ renpy.pause()
+    
+    "Você conseguiu extrair o molho agridoce da água-viva!"
+    "Agora vamos cozinhar com ele."
+    
+    # Remover uma água-viva do inventário
+    $ inventario.remove(21)
+    
+    $ escolha = "agridoce"
+    $ molho_agridoce_desbloqueado = True
+    jump chapa
+
+# Label para cozinhar com geleia de água-viva
+label chapa_geleia:
+    play audio "grelha.mp3" fadein 2.0
+
+    show chapa
+
+    "Você abre o pote de geleia de água-viva e espalha sobre os hambúrgueres."
+    "O aroma doce e picante preenche a cozinha."
+    
+    # Remover um pote de geleia do inventário
+    $ inventario.remove(23)
+    
+    pause(5)
+    
+    hide chapa
+    
+    "Seis horas depois" 
+    $ hora_do_dia += 6
+    
+    pause(2)
+    
+    show kk night
+    
+    show krab happy:
+        zoom 0.6 xpos 1000 ypos 400
+    
+    k "UAU, Bob Esponja! Esses hambúrgueres com geleia de água-viva foram um sucesso absoluto!"
+    k "Os clientes estão loucos por eles! DINHEIRO, DINHEIRO, DINHEIRO!"
+    
+    $ money += 30
+    "Você recebeu 30 dólares pelo excelente serviço com a geleia de água-viva!"
+    
+    stop music fadeout 3.0 
+    $ hora_do_dia = 20
+    
+    # Mostrar a tela xerequinha antes de sair
+    show screen xerequinha
+    
+    # Sair usando a label existente
+    jump quanaite
 
 label chapa:
   
@@ -124,11 +278,15 @@ label chapa:
      show krab happy:
       zoom 0.6 xpos 1000 ypos 400
 
-     k"”Vá pra casa rapaz, e ve se capricha mais amanhã os clientes estão reclamando que o gosto está uma merda."
+     k "Vá pra casa rapaz, e ve se capricha mais amanhã os clientes estão reclamando que o gosto está uma merda."
      
-
-     k"Não que eu me importe com isso se for uma vez ou outra,mas se manter esse ritmo vou perder DINHEI- digo meus amados clientes."
-     jump capturados
+     k "Não que eu me importe com isso se for uma vez ou outra,mas se manter esse ritmo vou perder DINHEI- digo meus amados clientes."
+     
+     # Mostrar a tela xerequinha antes de sair
+     show screen xerequinha
+     
+     # Usar a label existente
+     jump quanaite
 
   elif escolha == "gozo":
          show molho
@@ -155,26 +313,71 @@ label chapa:
          show krab happy:
           zoom 0.6 xpos 1000 ypos 400
 
-         k"”Vá pra casa rapaz, e continue com essa receita nova os clientes estão adorando $$ ."
+         k "Vá pra casa rapaz, e continue com essa receita nova os clientes estão adorando $$ ."
 
-         $money += 10
-         "Você recebeu 10 dolares pelo ótimo serviço!"
-         stop music fadeout 3.0
+         # Gerar uma recompensa aleatória entre 8 e 15 para o molho secreto
+         $ recompensa = renpy.random.randint(8, 15)
+         $ money += recompensa
+         "Você recebeu [recompensa] dólares pelo ótimo serviço!"
+         
+         stop music fadeout 3.0 
+         $ hora_do_dia = 20
+         
+         # Mostrar a tela xerequinha antes de sair
+         show screen xerequinha
+         
+         # Sair usando a label existente
          jump quanaite
 
+  elif escolha == "agridoce":
+         show molho
 
+         pause(2)
+
+         show molho2
+
+         pause(2)
+
+         show molho3
          
+         "Você adicionou o MOLHO AGRIDOCE DE ÁGUA-VIVA em todos os hambúrgueres de siri"
+
+         pause(2)
+
+         "Seis horas depois"
+         $ hora_do_dia += 6  
+
+         stop audio fadeout 2.0
+
+         show kk night
+
+         show krab happy:
+          zoom 0.6 xpos 1000 ypos 400
+
+         k "Caramba, Bob Esponja! Esse molho agridoce de água-viva é fantástico!"
+         k "Os clientes estão pedindo mais! Continue assim e vou ficar rico... digo, vamos ficar ricos juntos!"
+
+         # Gerar uma recompensa aleatória entre 8 e 25 para o molho agridoce
+         $ recompensa = renpy.random.randint(8, 25)
+         $ money += recompensa
+         "Você recebeu [recompensa] dólares pelo serviço com molho agridoce!"
+         
+         stop music fadeout 3.0 
+         $ hora_do_dia = 20
+         
+         # Mostrar a tela xerequinha antes de sair
+         show screen xerequinha
+         
+         # Sair usando a label existente
+         jump quanaite
   
-
-
-
-
-
   if nugget: 
     k "Vejo que alguem comeu seu rabo rapaz..."
 
   menu: 
      "Leave":
+       # Mostrar a tela xerequinha antes de sair
+       show screen xerequinha
        call screen mapScreen
 
 
@@ -231,21 +434,21 @@ label lobbykk:
              hover "barco pirusco.png" 
              action Jump("caixakk")  
 
-    imagebutton :
+    imagebutton:
               xpos 1170
               ypos 200
               idle "porta kk idle.png"
               hover "porta kk hover.png" 
               action Jump("cozinha")     
 
-    imagebutton :
+    imagebutton:
           xpos 1490
           ypos 200
           idle "porta kk idle.png"
           hover "porta kk hover.png" 
           action Jump("banheirao")   
 
-    imagebutton :
+    imagebutton:
           xpos 263
           ypos 200
           idle "porta kk idle.png"
@@ -281,299 +484,3 @@ label sala_siririca:
             zoom 0.75
 
     jump menu_principal_siririca
-
-label menu_principal_siririca:
-    menu:
-        "Conversar":
-            $ escolha = "conversar"
-            jump conversa_siririca
-            
-        "Pedir um aumento":
-            $ escolha = "aumento"
-            jump aumento_siririca
-            
-        "Perguntar sobre o Rola Molusco":
-            $ escolha = "molusco"
-            jump info_molusco
-            
-        "Mexer na gaveta secreta":
-            $ escolha = "gaveta"
-            jump gaveta_secreta
-            
-        "Voltar":
-            call screen lobbykk with fade
-
-label conversa_siririca:
-    hide krab a
-    show krab4:
-        zoom 0.6 xpos 1000 ypos 400
-    
-    k "Tem cinco segundos para falar o que quer. Cada segundo custa dinheiro, rapaz!"
-    
-    jump menu_conversa_siririca
-
-label menu_conversa_siririca:
-    menu:
-        "Perguntar sobre a história do Siri Cracudo":
-            show krab happy:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "Ah, essa é uma história inspiradora sobre CAPITALISMO E DINHEIRO!"
-            
-            k "Eu comecei com um hamburger velho, uma frigideira enferrujada e MUITA AMBIÇÃO!"
-            
-            k "E agora tenho esse império que me rende TANTO DINHEIRO HAHAHA"
-            
-            k "Agora volte ao trabalho antes que eu mude de ideia e te DEMITA!"
-            
-            jump menu_conversa_siririca
-        
-        "Perguntar sobre a filha dele":
-            show krab4:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "Pera aí, como VOCÊ sabe que eu tenho uma filha?"
-            
-            k "Você anda seguindo a Pérola por aí? Se eu descobrir que você está dando em cima dela..."
-            
-            show kradeath
-            
-            k "VOU ENFIAR ESSE HAMBÚRGUER DE SIRI NO SEU..."
-            
-            hide kradeath
-            show krab a:
-                zoom 0.75
-            
-            k "Ahem... volte ao trabalho, Bob Esponja."
-            
-            jump menu_conversa_siririca
-        
-        "Falar sobre o tempo":
-            show krab4:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "O tempo? O TEMPO É DINHEIRO, RAPAZ!"
-            
-            k "Enquanto estamos aqui falando sobre NADA, você podia estar lá fritando hambúrgueres e ME DANDO LUCRO!"
-            
-            jump menu_conversa_siririca
-        
-        "Fazer outra coisa":
-            show krab a at center:
-                zoom 0.75
-            
-            jump menu_principal_siririca
-            
-        "Voltar":
-            call screen lobbykk with fade
-
-label aumento_siririca:
-    hide krab a
-    show kradeath
-    
-    k "HAHAHAHAHAHA!"
-    
-    show krab4:
-        zoom 0.6 xpos 1000 ypos 400
-    
-    k "Essa foi boa, rapaz. AUMENTO? No Siri Cracudo?"
-    
-    k "Você já recebe o privilégio de trabalhar pro MELHOR RESTAURANTE da Fenda do Biquíni!"
-    
-    menu:
-        "Insistir no aumento":
-            show kradeath
-            
-            k "ESCUTA AQUI SEU PEDAÇO DE ESPONJA INÚTIL!"
-            
-            k "EU POSSO TE SUBSTITUIR POR QUALQUER PARASITA DO OCEANO!"
-            
-            k "Agora volte pra cozinha antes que eu te DEMITA!"
-            
-            $ money -= 5
-            "Seu Siririca multou você em 5 dólares por insubordinação!"
-            
-            jump menu_principal_siririca
-        
-        "Oferecer trabalhar mais horas":
-            show krab happy:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "AGORA ESTAMOS FALANDO A MESMA LÍNGUA!"
-            
-            k "Trabalhar DE GRAÇA depois do expediente? ISSO SIM é espírito de equipe!"
-            
-            k "Continue assim e talvez eu pense em te dar um aumento de 0,1%% no próximo século!"
-            
-            $ money += 2
-            "Você ganhou 2 dólares como 'incentivo'!"
-            
-            jump menu_principal_siririca
-        
-        "Sugerir uma promoção 'Traga sua batata e pague 2x mais'":
-            show krab happy:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "MEU DEUS! Você é um GÊNIO, rapaz!"
-            
-            k "Fazemos eles trazerem os ingredientes E pagarem mais? HAHAHA!"
-            
-            k "Vou implementar isso AGORA MESMO!"
-            
-            $ money += 15
-            "Você recebeu 15 dólares de comissão pela ideia!"
-            
-            jump menu_principal_siririca
-        
-        "Fazer outra coisa":
-            show krab a at center:
-                zoom 0.75
-            
-            jump menu_principal_siririca
-            
-        "Voltar":
-            call screen lobbykk with fade
-
-label info_molusco:
-    hide krab a
-    show krab4:
-        zoom 0.6 xpos 1000 ypos 400
-    
-    k "Aquele tentáculos inútil? O que tem ele?"
-    
-    k "Passa o dia inteiro reclamando e tocando aquela flauta irritante!"
-    
-    k "Mas ele é barato, então eu mantenho por aqui..."
-    
-    menu:
-        "Perguntar onde ele está":
-            k "Provavelmente no caixa, sendo mal-educado com os clientes como sempre."
-            
-            k "Ou escondido no banheiro batendo... quer dizer, tocando clarinete."
-            
-            jump menu_principal_siririca
-        
-        "Sugerir demitir o Lula Molusco":
-            show krab happy:
-                zoom 0.6 xpos 1000 ypos 400
-            
-            k "E pagar dois salários? Tá maluco?"
-            
-            k "Você faria o trabalho dele também?"
-            
-            menu:
-                "Sim, posso fazer":
-                    k "HAHAHA, você já está aceitando fazer HORA EXTRA de graça!"
-                    
-                    k "Agora quer fazer o trabalho do Lula também? SEM CHANCE!"
-                    
-                    k "Não vou demitir ele e contratar outro funcionário quando posso explorar DOIS de uma vez!"
-                    
-                    jump menu_principal_siririca
-                
-                "Não, melhor não":
-                    k "É o que eu pensava. Volte ao trabalho!"
-                    
-                    jump menu_principal_siririca
-        
-        "Fazer outra coisa":
-            show krab a at center:
-                zoom 0.75
-            
-            jump menu_principal_siririca
-            
-        "Voltar":
-            call screen lobbykk with fade
-
-label gaveta_secreta:
-    hide krab a
-    
-    "Enquanto Seu Siririca está distraído, você se esgueira até a gaveta secreta do escritório"
-    
-    menu:
-        "Abrir a gaveta":
-            "Você encontra várias fotos do Seu Siririca abraçado com sacos de dinheiro"
-            
-            "Também há um livro chamado 'Como explorar funcionários e lucrar com isso - Volume 37'"
-            
-            "E um cofre pequeno trancado..."
-            
-            menu:
-                "Tentar abrir o cofre":
-                    "Você tenta girar a combinação..."
-                    
-                    "De repente, um alarme dispara!"
-                    
-                    show kradeath at center with moveinright:
-                        zoom 0.9
-                    
-                    k "SEU LADRÃOZINHO DE MEIA TIGELA!"
-                    
-                    k "TENTANDO ROUBAR MEU PRECIOSO DINHEIRO?!"
-                    
-                    "Seu Siririca agarra você pela gola"
-                    
-                    k "VOU TE JOGAR NO FREEZER COM O ÚLTIMO FUNCIONÁRIO QUE TENTOU ME ROUBAR!"
-                    
-                    $ money = 0
-                    "Seu Siririca confiscou todo o seu dinheiro como punição!"
-                    
-                    jump menu_principal_siririca
-                
-                "Fechar a gaveta rapidamente":
-                    "Você fecha a gaveta bem a tempo"
-                    
-                    show krab a at center with moveinright:
-                        zoom 0.75
-                    
-                    k "O que você está fazendo perto da minha mesa, rapaz?"
-                    
-                    menu:
-                        "Só vim limpar a poeira, chefe!":
-                            show krab happy:
-                                zoom 0.6 xpos 1000 ypos 400
-                            
-                            k "Ah, limpeza gratuita! Assim que eu gosto!"
-                            
-                            k "Continue assim que um dia você talvez ganhe um aumento de meio centavo!"
-                            
-                            jump menu_principal_siririca
-                        
-                        "Procurando canetas para a cozinha":
-                            show krab4:
-                                zoom 0.6 xpos 1000 ypos 400
-                            
-                            k "CANETAS? Na cozinha?"
-                            
-                            k "Você acha que CANETAS crescem em árvores? São CARAS!"
-                            
-                            k "Use carvão ou tinta de lula como todo mundo!"
-                            
-                            jump menu_principal_siririca
-                
-                "Fazer outra coisa":
-                    jump menu_principal_siririca
-                    
-                "Voltar":
-                    call screen lobbykk with fade
-        
-        "Melhor não arriscar":
-            "Você decide que não vale a pena arriscar sua vida por curiosidade"
-            
-            show krab a at center with moveinleft:
-                zoom 0.75
-            
-            k "O que você está fazendo parado aí? O tempo é DINHEIRO!"
-            
-            k "Volte para a cozinha AGORA! Tem clientes esperando!"
-            
-            jump menu_principal_siririca
-        
-        "Fazer outra coisa":
-            show krab a at center:
-                zoom 0.75
-            
-            jump menu_principal_siririca
-            
-        "Voltar":
-            call screen lobbykk with fade
