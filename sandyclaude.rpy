@@ -41,7 +41,7 @@ label sandy:
 
     show sandy normal at center
     
-    sd "Oi, Bob Esponja! O que te traz aqui?"
+    sd "Oi, Bob Esperma! O que te traz aqui?"
     "Nível de interesse atual: [nivel_interesse_sandy]"
     
     jump mostrar_menu_sandy

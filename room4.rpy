@@ -1,24 +1,40 @@
 default vezes_investigou = 0
 default saida = 0
+# Variável para controlar se a TV já foi quebrada
+default tv_quebrada = False
+
+# Imagens para a sequência da TV
+image tv_reporter1 = "images/tv_reporter1.png"  # Frame 1 do peixe âncora
+image tv_reporter2 = "images/tv_reporter2.png"  # Frame 2 do peixe âncora (boca aberta)
+image tv_reporter3 = "images/tv_reporter3.png"  # Frame 3 do peixe âncora
+image tv_batavo_soco = "images/tv_batavo_soco.png"  # Batavo dando um soco na TV
+image tv_quebrada = "images/tv_quebrada.png"  # TV quebrada
+
+# Animação do peixe âncora
+image tv_reporter_anim:
+    "tv_reporter1"
+    pause 0.3
+    "tv_reporter2"
+    pause 0.3
+    "tv_reporter3"
+    pause 0.3
+    repeat
 
 label room4:
   # Desativa o mapa quando o jogador está dentro da casa
   $ mapa_disponivel = False
   
+  # Verificar se é após 20h para redirecionar para quanaite
+  if hora_do_dia >= 20:
+    jump quanaite
+  
+  # Se não for noite, continua normalmente  
   scene quartobob
 
   show batavo1 at Transform(xzoom=-1):
     zoom 1.3 xpos 1000 ypos 200 
-  #if saida == 0:  # Se for a primeira vez acordando
-    # Primeiro pensamento ao acordar
-    #"O que... onde estou? Ah, sim... o abacaxi."
-    # Gatilho para o flashback
-    #jump flashback_prisao
 
   "O que eu devo fazer agora?"
-
-  #show batavo1 at left:
-    # zoom 1.2
 
 init python:
     # Armazena a referência ao menu original
@@ -35,14 +51,15 @@ init python:
     renpy.display_menu = custom_menu   
 
 label chegada_em_casa:
+    # Verificar se é após 20h para redirecionar para quanaite
+    if hora_do_dia >= 20:
+        jump quanaite
+        
+    # Se não for noite, continua normalmente
     # Exibe o texto "Você chegou em casa" apenas uma vez
     # Inicia um loop de opções que sempre retorna ao menu inicial
     while True:
         menu:
-            #"Se masturbar":
-               # $ escolha = "quarto"
-               # jump opcoes
-
             "Ir para a sala":
                 play sound som_opcao
                 $ escolha = "cozinha"
@@ -56,14 +73,8 @@ label chegada_em_casa:
                 $ escolha = "inv"
                 jump opcoes
 
-            #"Sair":
-               # $ escolha = "tv"
-                #jump end1
-
 label opcoes:
     # Aqui você pode personalizar o que acontece dependendo da escolha
-    #if escolha == "quarto":
-        #"Você vai para o quarto."
     if escolha == "cozinha":
         "Você vai para a cozinha."
     elif escolha == "bob":
@@ -81,31 +92,29 @@ label opcoes:
         else:
             "Não há mais nada para investigar."
         $ vezes_investigou += 1
-    elif escolha =="tv":
-          show tv quebrada
-          "Tv está quebrada"
-          hide tv quebrada
-          jump salabob
-    elif escolha =="gary":
-          # Desativa temporariamente o som de digitação
-          $ temp_callbacks = config.all_character_callbacks[:]
-          $ config.all_character_callbacks = []
-          
-          play sound "gary1.wav"
-          $ renpy.music.set_volume(0.2, channel="sound")
-          "Gary" "Meow"
-          
-          # Restaura o sistema de som de digitação
-          $ config.all_character_callbacks = temp_callbacks
-          
-          jump salabob     
-
+    elif escolha == "gary":
+        # Desativa temporariamente o som de digitação
+        $ temp_callbacks = config.all_character_callbacks[:]
+        $ config.all_character_callbacks = []
+        
+        play sound "gary1.wav"
+        $ renpy.music.set_volume(0.2, channel="sound")
+        "Gary" "Meow"
+        
+        # Restaura o sistema de som de digitação
+        $ config.all_character_callbacks = temp_callbacks
+        
+        jump salabob     
 
     # Volta automaticamente para o menu de opções após uma escolha
-     # Aguarda 1 segundo antes de retornar
+    # Aguarda 1 segundo antes de retornar
     jump chegada_em_casa
 
 label salabob:
+ # Verificar se é após 20h para redirecionar para quanaite
+ if hora_do_dia >= 20:
+    jump quanaite
+    
  # Ainda dentro de casa, mapa continua desativado
  scene bg room4
  
@@ -123,11 +132,7 @@ label salabob:
          $ sala_mensagem_exibida = True 
 
       menu:
-            #"Se masturbar":
-               # $ escolha = "quarto"
-               # jump opcoes
             "Voltar para o quarto":
-
               scene quartobob
 
               show batavo1 at Transform(xzoom=-1) with fade:
@@ -136,8 +141,50 @@ label salabob:
               jump chegada_em_casa
 
             "Assistir TV":
-                $ escolha = "tv"
-                jump opcoes
+                if not tv_quebrada:
+                    # Primeira vez assistindo TV
+                    # Mostrar a animação do peixe âncora
+                    scene bg room4
+                    show tv_reporter_anim
+                    
+                    # Diálogo do peixe âncora
+                    "Peixe Âncora" "Notícia urgente! Um perigoso criminoso humano escapou da prisão em um barco!"
+                    
+                    "Peixe Âncora" "O barco naufragou próximo à Fenda do Biquíni! Qualquer informação deve ser reportada às auto-"
+                    
+                    # Batavo dá um soco na TV
+                    hide tv_reporter_anim
+                    show tv_batavo_soco
+                    
+                    play sound "punch.wav" volume 0.8
+                    with hpunch
+                    
+                    b "CALA A BOCA, PORRA!"
+                    
+                    # TV quebrada
+                    hide tv_batavo_soco
+                    show tv_quebrada
+                    
+                    "Você quebrou a TV com um soco."
+                    
+                    # Marcar a TV como quebrada permanentemente
+                    $ tv_quebrada = True
+                else:
+                    # TV já quebrada
+                    scene bg room4
+                    show tv_quebrada
+                    
+                    "A TV está quebrada."
+                
+                # Retornar ao menu da sala
+                scene bg room4
+                show batavo1 at Transform(xzoom=-1):
+                    zoom 1.0 xpos 1000 ypos 400
+                
+                show gary at left:
+                    zoom 0.3 xpos 500 ypos 1000
+                
+                jump salabob
 
             "Gary":
                 $ escolha = "gary"
@@ -163,15 +210,15 @@ label casanoite:
  # Quando volta para casa à noite, desativa o mapa novamente
  $ mapa_disponivel = False
  
- scene quartobob
+ scene quartobob noite
 
  show batavo1 at left with fade:
     zoom 1.2
 
  "O que eu devo fazer agora?"
 
-
-
+ # Redirecionar para quanaite, que é o quarto do Bob à noite
+ jump quanaite
 
 label end1:
    # Ativa o mapa ao sair e mostrar as casas

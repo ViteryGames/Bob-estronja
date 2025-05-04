@@ -12,11 +12,11 @@ label capturados:
 
   # Verifica se Bob está desmaiado
   if bob_desmaiado and saida <= saida_quando_desmaiou:
-    "Bob Esponja ainda está desmaiado"
+    "Bob Esperma ainda está desmaiado"
     "Ele respira com dificuldade, mas está vivo"
     jump quanaite
   
-  show bob trap night at Transform(xzoom=-1) with fade:
+  show bob trap night at Transform(xzoom=-1) with hpunch:
     zoom 0.9 xpos 800 ypos 450
 
   bs "Mmmmhhmmmm mmhm!!!!"
@@ -35,7 +35,9 @@ label capturados:
 
 label opbob1:
  if escolha == "cu":
-   "Você desmaiou o Bob Esponja"
+   play sound "soco.mp3"
+   with hpunch
+   "Você desmaiou o Bob Esperma"
    "Ele cai no chão, inconsciente"
    "Não há mais como interagir com ele por enquanto"
    $ bob_desmaiado = True
@@ -44,7 +46,7 @@ label opbob1:
    
  elif escolha == "Talk":
    if bob_desmaiado and saida <= saida_quando_desmaiou:
-     "Bob Esponja ainda está desmaiado no chão"
+     "Bob Esperma ainda está desmaiado no chão"
      "Parece que ele não vai acordar tão cedo"
      jump quanaite
    else:
@@ -53,19 +55,19 @@ label opbob1:
    
    # Exibe o diálogo inicial apenas na primeira vez
    if not dialogo_inicial_exibido:
-     "Você remove a mordaça da boca de Bob Esponja"
+     "Você remove a mordaça da boca de Bob Esperma"
      
      bs "Por favor, me solte! Eu não fiz nada de errado!"
      
      b "Cala a boca, seu pedaço de merda amarela!"
      
-     "Você dá um tapa no rosto de Bob Esponja"
+     "Você dá um tapa no rosto de Bob Esperma"
      
      bs "Ai! Por que você está fazendo isso comigo?"
      
      b "Porque eu quero, porra! Passei 15 anos trancado num buraco fedorento, agora é minha vez de me divertir!"
      
-     "Bob Esponja treme, seus olhos grandes cheios de medo"
+     "Bob Esperma treme, seus olhos grandes cheios de medo"
      
      $ dialogo_inicial_exibido = True
    
@@ -100,11 +102,11 @@ label opbob1_menu_opcoes:
     "Intimidar ele":
       b "Sabe o que eu fazia com caras como você na prisão?"
       
-      "Você se aproxima perigosamente de Bob Esponja"
+      "Você se aproxima perigosamente de Bob Esperma"
       
       b "Primeiro eu quebrava todos os ossos das mãos deles... mas você nem ossos tem, né? Que pena..."
       
-      "Bob Esponja tenta se afastar, mas está preso"
+      "Bob Esperma tenta se afastar, mas está preso"
       
       bs "P-por favor... tenha piedade..."
       
@@ -127,7 +129,7 @@ label opbob1_menu_opcoes:
       
       b "O quê? Muito sensível para ouvir a verdade do mundo real, esponjinha?"
       
-      "Você ri ao ver o terror nos olhos de Bob Esponja"
+      "Você ri ao ver o terror nos olhos de Bob Esperma"
       
       b "E isso foi só o começo. Imagina o que eu fiz com o cara que roubou meu almoço..."
       
@@ -139,8 +141,10 @@ label opbob1_menu_opcoes:
           
     "Desmaiar ele":
       b "Já cansei da sua cara idiota!"
+      play sound "soco.mp3"
+      with hpunch
       
-      "Você acerta um golpe violento na cabeça de Bob Esponja"
+      "Você acerta um golpe violento na cabeça de Bob Esperma" with hpunch
       
       "Ele cai inconsciente, sua forma amarela mole desabando no chão"
       
@@ -173,7 +177,7 @@ label quanaite:
      
      jump room4
        
-    "Falar com bob bicha":
+    "Falar com Bob Esperma":
       jump capturados
 
     "Espiar a janela":

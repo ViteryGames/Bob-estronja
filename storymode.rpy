@@ -9,7 +9,7 @@ label storymode:
     zoom 1.5 xpos 30 ypos 400 
 
     
- p"Ei Bob Esponja onde vc estava?! O Seu siririca está maluco atrás de voce tem muitos clientes no Siri Cracudo"
+ p"Ei Bob Esperma onde vc estava?! O Seu siririca está maluco atrás de voce tem muitos clientes no Siri Cracudo"
  hide patrick1
  show batavo1 at Transform(xzoom=-1):
     zoom 1.3 xpos 900 ypos 200 
@@ -26,7 +26,7 @@ label storymode:
      "Nunca ouvi falar":
          $ escolha = "tv"
          jump pau1
-     "Não sou o Bob Esponja, peguei o onibus errado e acabei vindo parar aqui.":  
+     "Não sou o Bob Esperma, sou um criminoso que tentou fugir e acabou aqui de alguma forma.":  
          $escolha = "vdd"
          jump pau1        
 
@@ -37,7 +37,7 @@ label pau1:
         zoom 1.5 xpos 30 ypos 400 
      p"(Coitado, todos esses anos acabaram deixando ele maluco. Deve estar ficando demente, melhor eu me afastar...)"
 
-     p"Certo Bob Esponja, até mais"
+     p"Certo Bob Esperma, até mais"
 
      hide patrick5
     elif escolha == "bob":
@@ -156,38 +156,12 @@ label day3:
   
   "Seu telefone de concha está vibrando"
 
-  sd"Oi Bob esponja! Venha me visitar hoje na casa da árvore!"
+  sd"Oi Bob Esperma! Venha me visitar hoje na casa da árvore!"
 
   menu:
-     "Vamboraaa porra quero gozar":
-         $escolha = "sandyS1"
-         jump sandybuzz1
-
-     "Me caguei seu viado fudido de merda?":
-         $escolha = "sandyN1"
-         call screen lobbykk with fade
-       
-label sandybuzz1:
-  if escolha == "sandyS1":  
-     show patrick2:
-        zoom 1.5 xpos 30 ypos 400 
-
-     p"Também não precisa falar assim..."
-
-     p"Cabeça de mechilhão!"
-
-     hide patrick2
-
-   
-
-  elif escolha == "sandyN1":
-     show patrick2:
-        zoom 1.5 xpos 30 ypos 400 
-   
-  menu:
-     "Ir la dar uma gozada":
+     "Visitar a Sandy":
          jump sandy
-      
+       
 
 
 

@@ -153,7 +153,7 @@ label patrick_jellyfish_intro:
     if renpy.has_image("pautrick"):
         show pautrick
     
-    p "Ei, Bob Esponja! Vamos caçar algumas águas-vivas hoje?"
+    p "Ei, Bob Esperma! Vamos caçar algumas águas-vivas hoje?"
     
     # Se não é a primeira vez, oferece a opção de fazer geleia primeiro
     if jogou_minigame_antes and 21 in inventario and 8 in inventario:
@@ -205,7 +205,7 @@ label patrick_jellyfish_intro:
 
 # Patrick explica como jogar
 label patrick_start_game:
-    p "Ok, Bob Esponja! Vamos lá! Você tem 10 segundos para pegar o máximo de águas-vivas que conseguir."
+    p "Ok amigão! Vamos lá! Você tem 10 segundos para pegar o máximo de águas-vivas que conseguir."
     p "Basta clicar nelas quando aparecerem na tela. Está pronto?"
     
     menu:
@@ -215,6 +215,7 @@ label patrick_start_game:
             
         "Espera, preciso me preparar melhor...":
             p "Ok, volte quando estiver pronto para caçar águas-vivas!"
+            $ hora_do_dia += 2
             show screen xerequinha
             jump room4
 
@@ -268,16 +269,16 @@ label patrick_end_game:
         show pautrick
     
     if ag_pontos == 0:
-        p "Uau, Bob Esponja, você não pegou nenhuma água-viva? Talvez seja melhor praticar mais um pouco."
+        p "Uau, Bob Esperma, você não pegou nenhuma água-viva? Talvez seja melhor praticar mais um pouco."
         p "Vamos voltar para casa e tentar outro dia."
-        
+        $ hora_do_dia += 5
         show screen xerequinha
         jump room4
         
     elif ag_pontos < 5:
-        p "Você pegou [ag_pontos] águas-vivas, Bob Esponja! Não está mal para um iniciante."
+        p "Você pegou só [ag_pontos] águas-vivas... Na próxima vez tenta usar a rede"
     else:
-        p "UAU! Você pegou [ag_pontos] águas-vivas, Bob Esponja! Isso é incrível!"
+        p "UAU! Você pegou [ag_pontos] águas-vivas! Isso é incrível!"
     
     # Adicionando todas as águas-vivas ao inventário automaticamente
     $ adicionar_aguas_vivas_capturadas()
@@ -287,7 +288,7 @@ label patrick_end_game:
     $ pode_fazer_geleia = 8 in inventario
     
     if pode_fazer_geleia:
-        p "Ei, Bob Esponja! Que tal fazermos um pouco de geleia de águas-vivas agora?"
+        p "O que acha de fazermos um pouco de geleia de águas-vivas agora?"
         
         menu:
             "Fazer geleia":
@@ -326,7 +327,7 @@ label patrick_end_game:
     
     menu:
         "Brincar com as águas-vivas um pouco":
-            p "Ah, isso vai ser divertido, Bob Esponja!"
+            p "Ah, isso vai ser divertido, Bob Esperma!"
             
             scene jellos with dissolve
             
@@ -342,14 +343,14 @@ label patrick_end_game:
             p "Foi divertido! Voltemos outra hora para brincar mais."
             
         "Vamos embora":
-            p "Ok, Bob Esponja, vamos embora."
+            p "Ok, vamos embora."
             p "Foi divertido, mas temos outras coisas para fazer!"
     
     p "Foi um ótimo dia de caça às águas-vivas! Vamos voltar para casa."
     
     # Limpa as telas
     $ limpar_telas_aguasvivas()
-    
+    $ hora_do_dia += 5
     # Volta para o jogo principal
     show screen xerequinha
     jump room4

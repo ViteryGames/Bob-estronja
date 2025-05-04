@@ -1,4 +1,112 @@
+# sandyanim.rpy - Animações para cenas com Sandy (modificado)
+
+# Animações para punheta - Versão normal
+image sandy_punheta_anim:
+    "images/sandy_punheta_1.webp"
+    pause 0.4  # Ritmo normal
+    "images/sandy_punheta_2.webp"
+    pause 0.4
+    "images/sandy_punheta_3.webp"
+    pause 0.4
+    repeat
+
+# Animações para punheta - Versão rápida (clímax)
+image sandy_punheta_anim_rapida:
+    "images/sandy_punheta_1.webp"
+    pause 0.15  # Ritmo mais rápido
+    "images/sandy_punheta_2.webp"
+    pause 0.15
+    "images/sandy_punheta_3.webp"
+    pause 0.15
+    repeat
+
+# Animações para boquete - Versão normal
+image sandy_boquete_anim:
+    "images/sandy_boquete_1.png"
+    pause 0.35
+    "images/sandy_boquete_2.png"
+    pause 0.35
+    "images/sandy_boquete_3.png"
+    pause 0.35
+    repeat
+
+# Animações para boquete - Versão rápida (clímax)
+image sandy_boquete_anim_rapida:
+    "images/sandy_boquete_1.png"
+    pause 0.15
+    "images/sandy_boquete_2.png"
+    pause 0.15
+    "images/sandy_boquete_3.png"
+    pause 0.15
+    repeat
+
+# Animações para buceta - Versão normal
+image sandy_buceta_anim:
+    "images/sandy_buceta_1.png"
+    pause 0.4
+    "images/sandy_buceta_2.png"
+    pause 0.4
+    "images/sandy_buceta_3.png"
+    pause 0.4
+    repeat
+
+# Animações para buceta - Versão rápida (clímax)
+image sandy_buceta_anim_rapida:
+    "images/sandy_buceta_1.png"
+    pause 0.2
+    "images/sandy_buceta_2.png"
+    pause 0.2
+    "images/sandy_buceta_3.png"
+    pause 0.2
+    repeat
+
+# Animações para cuzinho - Versão normal
+image sandy_cuzinho_anim:
+    "images/sandy_cuzinho_1.png"
+    pause 0.4
+    "images/sandy_cuzinho_2.png"
+    pause 0.4
+    "images/sandy_cuzinho_3.png"
+    pause 0.4
+    repeat
+
+# Animações para cuzinho - Versão rápida (clímax)
+image sandy_cuzinho_anim_rapida:
+    "images/sandy_cuzinho_1.png"
+    pause 0.18
+    "images/sandy_cuzinho_2.png"
+    pause 0.18
+    "images/sandy_cuzinho_3.png"
+    pause 0.18
+    repeat
+
+# Animações para nozes no cuzinho - Versão normal
+image nozes_cuzinho_anim:
+    "images/nozes_cuzinho_1.png"
+    pause 0.5
+    "images/nozes_cuzinho_2.png"
+    pause 0.5
+    "images/nozes_cuzinho_3.png"
+    pause 0.5
+    repeat
+
+# Animações para nozes no cuzinho - Versão rápida (clímax)
+image nozes_cuzinho_anim_rapida:
+    "images/nozes_cuzinho_1.png"
+    pause 0.25
+    "images/nozes_cuzinho_2.png"
+    pause 0.25
+    "images/nozes_cuzinho_3.png"
+    pause 0.25
+    repeat
+
+# As animações de gozada permanecem iguais
+
+# Ver os peitos da Sandy (nível 1+)
 # sandyfucks.rpy - Arquivo contendo os labels de conteúdo sexual com Sandy
+
+# Som para as gozadas
+define audio.gozada = "audio/porra.mp3"
 
 # Ver os peitos da Sandy (nível 1+)
 label ver_peitos_sandy:
@@ -190,20 +298,15 @@ label ver_buceta_sandy:
             sd "Vai, Bob! Goza olhando pra minha bucetinha!"
             "Você se masturba furiosamente enquanto admira a Sandy."
             
-            # Primeira gozada com shake
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma isso, Sandy! Isso mesmo!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua se masturbando, liberando mais jatos."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Tô gozando muito!"
             
             sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
             
@@ -220,10 +323,6 @@ label ver_buceta_sandy:
             # Segunda gozada com shake
             with hpunch
             "Seus gemidos ficam mais intensos."
-            
-            # Terceira gozada com shake
-            with hpunch
-            sd "Ahh! Estou... gozando!"
             
             # Completar com os últimos diálogos
             $ i = len(sequencia) - 2
@@ -277,20 +376,15 @@ label ver_buceta_rapido:
             sd "Vai, Bob! Goza olhando pra minha bucetinha!"
             "Você se masturba furiosamente enquanto admira a Sandy."
             
-            # Primeira gozada com shake
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Ahhh! Que delícia!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua gozando, seu corpo tremendo."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho, Sandy! Você me deixa louco!"
             
             sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
             
@@ -334,20 +428,15 @@ label ver_buceta_zoom:
             sd "Vai, Bob! Goza olhando pra minha bucetinha!"
             "Você se masturba furiosamente enquanto admira a Sandy."
             
-            # Primeira gozada com shake
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma isso, Sandy! É tudo pra você!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "O prazer é tão intenso que você mal consegue ficar em pé."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Puta merda! Tô gozando demais!"
             
             sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
             
@@ -395,11 +484,13 @@ label punheta_sandy:
     $ indice = min(vezes_punheta, 2)
     $ sequencia = obter_sequencia_punheta(indice)
     
-    show sandy seducao at center
+    # Iniciar com a animação imediatamente
+    scene bg casa_sandy
+    show sandy_punheta_anim
     
-    # Mostrar a sequência de diálogos até o penúltimo (antes do orgasmo)
+    # Mostrar diálogos enquanto a animação está no ritmo normal
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < 5:  # Primeiros 5 diálogos
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -409,62 +500,74 @@ label punheta_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar dentro ou fora
+    # Mudar para ritmo mais rápido e continuar diálogos
+    hide sandy_punheta_anim
+    show sandy_punheta_anim_rapida
+    
+    # Continuar os diálogos com ritmo mais rápido
+    while i < len(sequencia) - 2:  # -2 para parar antes do clímax
+        $ quem_fala, texto = sequencia[i]
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
+    # Opção de gozar
     menu:
         "Onde você quer gozar?"
         
         "Gozar na mão dela":
             bob "Vou gozar na sua mão, Sandy!"
-            $ i = len(sequencia) - 2  # Pegar os últimos dois diálogos
-            while i < len(sequencia):
-                $ quem_fala, texto = sequencia[i]
-                if quem_fala == "sd":
-                    sd "[texto]"
-                elif quem_fala == "bob":
-                    bob "[texto]"
-                else:
-                    "[texto]"
-                $ i += 1
             
-            # Primeira gozada com shake
+            # Esconder a animação de punheta
+            hide sandy_punheta_anim_rapida
+            
+            # Mostrar animação de gozada na mão
+            show gozada_peitos_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Isso mesmo, Sandy! Continua!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Sandy continua masturbando você enquanto o gozo escorre por seus dedos."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Ainda tá saindo mais!"
-            
-            sd "Uau! Você soltou bastante hoje!"
+            # Esconder a animação de gozada
+            hide gozada_peitos_anim
             
         "Gozar no rosto dela":
             bob "Vou gozar na sua cara!"
             sd "O quê? Espera, eu não est--"
-            "Você direciona seu pau para o rosto dela e libera tudo."
             
-            # Primeira gozada com shake
+            # Esconder a animação de punheta
+            hide sandy_punheta_anim_rapida
+            
+            # Mostrar animação de gozada no rosto
+            show gozada_rosto_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma isso na cara, Sandy!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "O primeiro jato atinge o rosto dela em cheio."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            "Você continua gozando, cobrindo todo o rosto dela."
-            
-            sd "Ugh! Meus olhos! Avisa da próxima vez!"
-            "Sandy limpa o rosto, um pouco irritada mas também intrigada."
+            # Esconder a animação de gozada
+            hide gozada_rosto_anim
+    
+    # Mostrar Sandy satisfeita
+    show sandy satisfeita at center
+    
+    sd "Uau, quanto leite! Você realmente gostou, hein?"
 
     $ vezes_punheta += 1
     $ hora_do_dia += 2
@@ -493,11 +596,13 @@ label boquete_sandy:
     $ indice = min(vezes_boquete, 2)
     $ sequencia = obter_sequencia_boquete(indice)
     
-    show sandy seducao at center
+    # Iniciar com a animação imediatamente
+    scene bg casa_sandy
+    show sandy_boquete_anim
     
-    # Mostrar a sequência de diálogos até o penúltimo (antes do orgasmo)
+    # Mostrar diálogos enquanto a animação está no ritmo normal
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < 5:  # Primeiros 5 diálogos
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -507,55 +612,74 @@ label boquete_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar dentro ou fora
+    # Mudar para ritmo mais rápido e continuar diálogos
+    hide sandy_boquete_anim
+    show sandy_boquete_anim_rapida
+    
+    # Continuar os diálogos com ritmo mais rápido
+    while i < len(sequencia) - 2:  # -2 para parar antes do clímax
+        $ quem_fala, texto = sequencia[i]
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
+    # Opção de gozar
     menu:
         "Onde você quer gozar?"
         
         "Gozar na boca":
             bob "Vou gozar na sua boca, engole tudo!"
-            "Sandy arregala os olhos mas continua chupando."
             
-            # Primeira gozada com shake
+            # Esconder a animação de boquete
+            hide sandy_boquete_anim_rapida
+            
+            # Mostrar animação de gozada na boca
+            show gozada_boca_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Isso mesmo! Engole tudo!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você segura a cabeça dela enquanto continua gozando."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Puta que pariu! Tô gozando demais!"
-            
-            sd "*Glup* *Glup* ... *Cof* *Cof*"
-            "Sandy tenta engolir tudo, mas um pouco escorre pelo canto da boca."
-            sd "Uau... isso é... diferente do que eu esperava."
+            # Esconder a animação de gozada
+            hide gozada_boca_anim
             
         "Gozar no rosto":
             bob "Vou gozar na sua cara!"
-            "Você tira da boca dela e direciona para o rosto."
             
-            # Primeira gozada com shake
+            # Esconder a animação de boquete
+            hide sandy_boquete_anim_rapida
+            
+            # Mostrar animação de gozada no rosto
+            show gozada_rosto_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma na cara, Sandy!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua gozando enquanto ela fecha os olhos."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Ainda não acabou! Toma mais!"
-            
-            sd "Aaah! Tá quente!"
-            "O rosto de Sandy fica completamente coberto."
-            sd "Nossa... quanto... nunca pensei que uma esponja pudesse produzir tanto líquido."
+            # Esconder a animação de gozada
+            hide gozada_rosto_anim
+    
+    # Mostrar Sandy satisfeita
+    show sandy satisfeita at center
+    
+    sd "*Glup* *Glup* ... *Cof* *Cof*"
+    sd "Uau... isso é... diferente do que eu esperava."
 
     $ hora_do_dia += 2
     $ vezes_boquete += 1
@@ -584,11 +708,13 @@ label foder_buceta_sandy:
     $ indice = min(vezes_foder_buceta, 2)
     $ sequencia = obter_sequencia_foder_buceta(indice)
     
-    show sandy seducao at center
+    # Iniciar com a animação imediatamente
+    scene bg casa_sandy
+    show sandy_buceta_anim
     
-    # Mostrar a sequência de diálogos até o penúltimo (antes do orgasmo)
+    # Mostrar diálogos enquanto a animação está no ritmo normal
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < 5:  # Primeiros 5 diálogos
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -598,7 +724,22 @@ label foder_buceta_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar dentro ou fora
+    # Mudar para ritmo mais rápido e continuar diálogos
+    hide sandy_buceta_anim
+    show sandy_buceta_anim_rapida
+    
+    # Continuar os diálogos com ritmo mais rápido
+    while i < len(sequencia) - 2:  # -2 para parar antes do clímax
+        $ quem_fala, texto = sequencia[i]
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
+    # Opção de gozar
     menu:
         "Onde você quer gozar?"
         
@@ -606,45 +747,52 @@ label foder_buceta_sandy:
             bob "Vou gozar dentro de você!"
             sd "Sim! Me enche toda de porra!"
             
-            # Primeira gozada com shake
+            # Esconder a animação de sexo
+            hide sandy_buceta_anim_rapida
+            
+            # Mostrar animação de gozada dentro
+            show gozada_buceta_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma dentro, Sandy! Tô gozando!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua metendo enquanto libera mais jatos dentro dela."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Ainda tá saindo mais!"
-            
-            "Você sente seu orgasmo explodir dentro dela."
-            sd "Ahhh! Estou sentindo tudo dentro! É tão quente!"
+            # Esconder a animação de gozada
+            hide gozada_buceta_anim
             
         "Gozar fora":
             bob "Vou gozar fora!"
-            "Você retira rapidamente e goza sobre a barriga dela."
             
-            # Primeira gozada com shake
+            # Esconder a animação de sexo
+            hide sandy_buceta_anim_rapida
+            
+            # Mostrar animação de gozada fora
+            show gozada_peitos_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma isso, Sandy! Tá saindo muito!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua se masturbando sobre a barriga dela."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Olha quanto leite!"
-            
-            sd "Uau! Quanta porra! Tá me inundando toda!"
-            "A barriga de Sandy fica completamente coberta pelo seu líquido."
+            # Esconder a animação de gozada
+            hide gozada_peitos_anim
+    
+    # Mostrar Sandy satisfeita
+    show sandy satisfeita at center
+    
+    sd "Ahhh! Estou sentindo tudo dentro! É tão quente!"
+    "Sandy fica completamente satisfeita."
 
     $ hora_do_dia += 2
     $ vezes_foder_buceta += 1
@@ -661,6 +809,7 @@ label foder_buceta_sandy:
     jump finalizar_sandy  # Vai para o final da interação
 
 # Enfiar nozes no cuzinho (nível 15)
+# Enfiar nozes no cuzinho (nível 15)
 label nozes_cuzinho_sandy:
     # Verificar se já realizou ação sexual hoje
     if ultimo_dia_acao_sexual == dia:
@@ -676,11 +825,13 @@ label nozes_cuzinho_sandy:
     $ indice = min(vezes_nozes_cuzinho, 0)
     $ sequencia = obter_sequencia_nozes_cuzinho(indice)
     
-    show sandy seducao at center
+    # Iniciar com a animação imediatamente
+    scene bg casa_sandy
+    show nozes_cuzinho_anim
     
-    # Mostrar a sequência de diálogos até o penúltimo (antes do clímax)
+    # Mostrar diálogos enquanto a animação está no ritmo normal
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < 5:  # Primeiros 5 diálogos
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -689,7 +840,22 @@ label nozes_cuzinho_sandy:
         else:
             "[texto]"
         $ i += 1
-        
+    
+    # Mudar para ritmo mais rápido e continuar diálogos
+    hide nozes_cuzinho_anim
+    show nozes_cuzinho_anim_rapida
+    
+    # Continuar os diálogos com ritmo mais rápido
+    while i < len(sequencia) - 2:  # -2 para parar antes do clímax
+        $ quem_fala, texto = sequencia[i]
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
     # Opções para o clímax
     menu:
         "O que você quer fazer?"
@@ -697,22 +863,23 @@ label nozes_cuzinho_sandy:
         "Gozar enquanto ela tem o orgasmo":
             "Você se masturba furiosamente enquanto insere as nozes."
             
-            # Primeira gozada com shake
+            # Esconder a animação de nozes
+            hide nozes_cuzinho_anim_rapida
+            
+            # Mostrar animação de gozada
+            show gozada_peitos_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Isso, Sandy! Goza com essas nozes no rabo!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua se masturbando enquanto observa as nozes entrando nela."
             
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Tô gozando muito vendo isso!"
-            
-            # Completar os diálogos finais
+            # Completar com os últimos diálogos
             $ i = len(sequencia) - 2
             while i < len(sequencia):
                 $ quem_fala, texto = sequencia[i]
@@ -724,27 +891,37 @@ label nozes_cuzinho_sandy:
                     "[texto]"
                 $ i += 1
             
+            # Esconder a animação de gozada
+            hide gozada_peitos_anim
+            
         "Gozar em cima das nozes inseridas":
             "Você se masturba e direciona para o cuzinho enquanto as nozes estão dentro."
             
-            # Primeira gozada com shake
+            # Esconder a animação de nozes
+            hide nozes_cuzinho_anim_rapida
+            
+            # Mostrar animação de gozada nas nozes
+            show gozada_cuzinho_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Vou gozar em cima das nozes, Sandy!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "O primeiro jato cobre as nozes inseridas."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Olha quanto leite tá saindo! Tô inundando seu rabo!"
             
             sd "Uau! Você tá molhando todas as nozes!"
             "O líquido escorre entre as nozes inseridas no cuzinho da Sandy."
-
+            
+            # Esconder a animação de gozada
+            hide gozada_cuzinho_anim
+    
+    # Mostrar Sandy satisfeita
+    show sandy satisfeita at center
+    
     $ hora_do_dia += 2
     $ vezes_nozes_cuzinho += 1
     
@@ -775,11 +952,13 @@ label comer_cuzinho:
     $ indice = min(vezes_cuzinho, 2)
     $ sequencia = obter_sequencia_cuzinho(indice)
     
-    show sandy seducao at center
+    # Iniciar com a animação imediatamente
+    scene bg casa_sandy
+    show sandy_cuzinho_anim
     
-    # Mostrar a sequência de diálogos até o penúltimo (antes do orgasmo)
+    # Mostrar diálogos enquanto a animação está no ritmo normal
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < 5:  # Primeiros 5 diálogos
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -789,7 +968,22 @@ label comer_cuzinho:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar dentro ou fora
+    # Mudar para ritmo mais rápido e continuar diálogos
+    hide sandy_cuzinho_anim
+    show sandy_cuzinho_anim_rapida
+    
+    # Continuar os diálogos com ritmo mais rápido
+    while i < len(sequencia) - 2:  # -2 para parar antes do clímax
+        $ quem_fala, texto = sequencia[i]
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
+    # Opção de gozar
     menu:
         "Onde você quer gozar?"
         
@@ -797,46 +991,57 @@ label comer_cuzinho:
             bob "Vou encher seu cu de porra!"
             sd "SIM! GOZA DENTRO! INUNDA MEU CUZINHO!"
             
-            # Primeira gozada com shake
+            # Esconder a animação de cuzinho
+            hide sandy_cuzinho_anim_rapida
+            
+            # Mostrar animação de gozada dentro do cuzinho
+            show gozada_cuzinho_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Toma no cuzinho, Sandy! Tá saindo muito!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "Você continua metendo enquanto solta mais jatos dentro dela."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Caralho! Nunca gozei tanto assim!"
             
             "Você bombeia jatos e mais jatos dentro do cuzinho da Sandy."
             sd "Ahhhh! Tá tão quente dentro de mim!"
+            
+            # Esconder a animação de gozada
+            hide gozada_cuzinho_anim
             
         "Gozar na cara dela":
             bob "Quero gozar na sua cara!"
             "Você retira rapidamente e corre para o rosto dela."
             sd "O quê? Espera, acabou de sair do meu--"
             
-            # Primeira gozada com shake
+            # Esconder a animação de cuzinho
+            hide sandy_cuzinho_anim_rapida
+            
+            # Mostrar animação de gozada na cara
+            show gozada_rosto_anim
+            
+            # Primeira gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             b "Engole essa porra toda, Sandy!"
             
-            # Segunda gozada com shake
+            # Segunda gozada com shake e som
             with hpunch
-            play sound "porra.mp3"
+            play sound audio.gozada
             "O primeiro jato atinge o rosto dela em cheio."
-            
-            # Terceira gozada com shake
-            with hpunch
-            play sound "porra.mp3"
-            b "Ainda não acabou! Toma mais leite!"
             
             "Você explode violentamente na cara dela."
             sd "Ugh! Isso é nojento... mas até que gostei..."
+            
+            # Esconder a animação de gozada
+            hide gozada_rosto_anim
+    
+    # Mostrar Sandy satisfeita
+    show sandy satisfeita at center
     
     $ hora_do_dia += 2
     $ vezes_cuzinho += 1

@@ -2,11 +2,54 @@ define lu = "Lula Pirusco"
 default cozinha_mensagem = False
 default contador_agridoce = 0  # Contador para ordenhar água-viva
 default molho_agridoce_desbloqueado = False  # Controla se o molho agridoce está desbloqueado
+define audio.gozada = "gozada.mp3"
 
-# Imagens para a animação de ordenha
-image ordenha_frame1 = "images/ordenha1.png"
-image ordenha_frame2 = "images/ordenha2.png"
-image ordenha_frame3 = "images/ordenha3.png"
+
+# Imagens para a animação de "ordenha" da água-viva
+image ordenha_frame1 = "images/ordenha1.png"  # Frame 1: Inicial (pênis fora)
+image ordenha_frame2 = "images/ordenha2.png"  # Frame 2: Intermediário (pênis entrando)
+image ordenha_frame3 = "images/ordenha3.png"  # Frame 3: Final (pênis mais fundo)
+
+# Imagens para a animação de "clímax"
+image gozada_frame1 = "images/gozada1.png"  # Frame 1: Inicial do clímax
+image gozada_frame2 = "images/gozada2.png"  # Frame 2: Meio do clímax
+image gozada_frame3 = "images/gozada3.png"  # Frame 3: Final do clímax
+
+# Animação de ordenha em ATL
+image ordenha_sequencia:
+    "ordenha_frame1"
+    pause 0.05
+    "ordenha_frame2"
+    pause 0.3
+    "ordenha_frame3" 
+    pause 0.3
+    "ordenha_frame2"
+    pause 0.3
+    "ordenha_frame1"
+    pause 0.05
+
+# Som de gozada
+
+# Animação contínua que roda em loop
+image ordenha_anim:
+    "ordenha_frame1"
+    pause 0.2
+    "ordenha_frame2" 
+    pause 0.2
+    "ordenha_frame3"
+    pause 0.2
+    "ordenha_frame2"
+    pause 0.2
+    repeat
+
+# Imagens para a animação de "clímax"
+image gozada_anim:
+    "gozada_frame1"
+    pause 0.25
+    "gozada_frame2"
+    pause 0.25
+    "gozada_frame3"
+    pause 0.5
 
 # Caso as imagens não existam, criamos placeholders
 init python:
@@ -26,11 +69,11 @@ label room2:
   show krab a at center with hpunch:
      zoom 0.75
 
-  k "BOB ESPONJA!!!" 
+  k "BOB ESPERMA!!!" 
 
   k "Posso saber onde vc estava?"
   menu:
-      "Não sou o Bob Esponja. O verdadeiro ta amarrado em casa.":
+      "Não sou o Bob Esperma. O verdadeiro ta amarrado em casa.":
        $escolha = "truth"
        jump siricas
 
@@ -153,7 +196,7 @@ label chapa_abacaxi:
     show krab happy:
         zoom 0.6 xpos 1000 ypos 400
     
-    k "CARAMBA, Bob Esponja!! Esses hambúrgueres estão DIVINOS!"
+    k "CACILDA, Bob Esperma!! Esses hambúrgueres estão DIVINOS!"
     k "O abacaxi deu um toque especial... tão docinho... TÃO LUCRATIVO!"
     k "Os clientes estão pagando o dobro só para comer mais desses!"
     
@@ -173,8 +216,8 @@ label chapa_abacaxi:
 label ordenhar_aguaviva:
     scene kitchen
     
-    "Você pega uma água-viva do seu bolso e se prepara para extrair seu molho agridoce."
-    "Clique 20 vezes na água-viva para ordenhá-la."
+    "Você pega uma água-viva do seu bolso e se prepara para extrair seu 'molho agridoce'."
+    "Clique 20 vezes na água-viva para extrair o molho."
     
     $ contador_agridoce = 0
     
@@ -182,23 +225,44 @@ label ordenhar_aguaviva:
     screen ordenhar_screen():
         modal True
         
+        # Frame principal com a água-viva 
+        # - Isso substituirá a cena quando a animação não estiver rodando
+        add "ordenha_frame1" xalign 0.5 yalign 0.5
+        
+        # Mostrar a animação na mesma posição quando ativada
+        if renpy.get_screen("ordenha_animacao"):
+            add "ordenha_sequencia" xalign 0.5 yalign 0.5
+        
+        # Contador no topo da tela
         frame:
             xalign 0.5
+            yalign 0.1
+            padding (20, 10)
+            text "Ordenhar: [contador_agridoce]/20" size 30 xalign 0.5
+        
+        # Botão "Meter" isolado no canto direito
+        frame:
+            xalign 0.9
             yalign 0.5
-            padding (20, 20)
+            padding (10, 10)
             
-            vbox:
-                spacing 10
-                text "Ordenhar: [contador_agridoce]/20" size 30 xalign 0.5
-                
-                imagebutton:
-                    idle "ordenha_frame1"
-                    hover "ordenha_frame2"
-                    selected_idle "ordenha_frame3"
-                    action [SetVariable("contador_agridoce", contador_agridoce + 1), 
-                            Show("ordenhar_screen") if contador_agridoce < 19 else Hide("ordenhar_screen")]
-                    selected contador_agridoce % 3 == 2
-                    xalign 0.5
+            textbutton "Meter":
+                action [Play("sound", "gozada.mp3"),
+                        Show("ordenha_animacao"),
+                        SetVariable("contador_agridoce", contador_agridoce + 1),
+                        If(contador_agridoce + 1 >= 20, 
+                           Hide("ordenhar_screen"), 
+                           NullAction())]
+                text_size 30
+                text_color "#FFFFFF"
+                text_hover_color "#FF3366"
+                text_outlines [(2, "#990000", 0, 0)]
+                background "#DD0000"
+                hover_background "#FF0000"
+    
+    # Tela para temporizador da animação
+    screen ordenha_animacao():
+        timer 1.0 action Hide("ordenha_animacao")
     
     # Mostrar a tela de ordenha
     show screen ordenhar_screen
@@ -206,8 +270,35 @@ label ordenhar_aguaviva:
     # Pausar até que o jogador complete os 20 cliques
     $ renpy.pause()
     
-    "Você conseguiu extrair o molho agridoce da água-viva!"
-    "Agora vamos cozinhar com ele."
+    # Tela para o clímax após completar 20 cliques
+    "Você está prestes a extrair o molho!"
+    
+    menu:
+        "Gozar":
+            # Animação de clímax
+            play sound "gozada.mp3" volume 1.0
+            
+            show gozada_frame1
+            pause 0.3
+            
+            hide gozada_frame1
+            show gozada_frame2
+            pause 0.3
+            
+            hide gozada_frame2
+            show gozada_frame3
+            pause 0.4
+            
+            hide gozada_frame3
+            
+            # Efeito de tremedeira para intensificar o momento
+            with hpunch
+            with vpunch
+            
+            "POOOOORRA!!!"
+            
+            "Você conseguiu extrair o molho agridoce da água-viva!"
+            "Agora vamos cozinhar com ele."
     
     # Remover uma água-viva do inventário
     $ inventario.remove(21)
@@ -232,7 +323,7 @@ label chapa_geleia:
     
     hide chapa
     
-    "Seis horas depois" 
+    "Algumas horas depois" 
     $ hora_do_dia += 6
     
     pause(2)
@@ -242,7 +333,7 @@ label chapa_geleia:
     show krab happy:
         zoom 0.6 xpos 1000 ypos 400
     
-    k "UAU, Bob Esponja! Esses hambúrgueres com geleia de água-viva foram um sucesso absoluto!"
+    k "UAU, Bob Esperma! Esses hambúrgueres com geleia de água-viva foram um sucesso absoluto!"
     k "Os clientes estão loucos por eles! DINHEIRO, DINHEIRO, DINHEIRO!"
     
     $ money += 30
@@ -268,7 +359,7 @@ label chapa:
 
      hide chapa
 
-     "Seis horas depois" 
+     "Algumas horas depois" 
      $ hora_do_dia += 6 
 
      pause(2)
@@ -303,7 +394,7 @@ label chapa:
 
          pause(2)
 
-         "Seis horas depois"
+         "Algumas horas depois"
          $ hora_do_dia += 6  
 
          stop audio fadeout 2.0
@@ -313,7 +404,7 @@ label chapa:
          show krab happy:
           zoom 0.6 xpos 1000 ypos 400
 
-         k "Vá pra casa rapaz, e continue com essa receita nova os clientes estão adorando $$ ."
+         k "Vá pra casa rapaz, e continue com essa receita nova os clientes estão adorando!!"
 
          # Gerar uma recompensa aleatória entre 8 e 15 para o molho secreto
          $ recompensa = renpy.random.randint(8, 15)
@@ -330,21 +421,21 @@ label chapa:
          jump quanaite
 
   elif escolha == "agridoce":
-         show molho
+         show gozojam1
 
          pause(2)
 
-         show molho2
+         show gozojam2
 
          pause(2)
 
-         show molho3
+         show gozojam3
          
          "Você adicionou o MOLHO AGRIDOCE DE ÁGUA-VIVA em todos os hambúrgueres de siri"
 
          pause(2)
 
-         "Seis horas depois"
+         "Algumas horas depois"
          $ hora_do_dia += 6  
 
          stop audio fadeout 2.0
@@ -354,7 +445,7 @@ label chapa:
          show krab happy:
           zoom 0.6 xpos 1000 ypos 400
 
-         k "Caramba, Bob Esponja! Esse molho agridoce de água-viva é fantástico!"
+         k "Caramba, Bob Esperma! Esse molho agridoce de água-viva é fantástico!"
          k "Os clientes estão pedindo mais! Continue assim e vou ficar rico... digo, vamos ficar ricos juntos!"
 
          # Gerar uma recompensa aleatória entre 8 e 25 para o molho agridoce
@@ -411,7 +502,7 @@ label luleta:
    
      
      show caixa kk lula
-     "Ta que se foda eu so venho aqui pra fazer banheirao mesmo"
+     lu"Ta que se foda eu so venho aqui pra fazer banheirao mesmo"
      jump cozinha
 
 
@@ -441,12 +532,12 @@ label lobbykk:
               hover "porta kk hover.png" 
               action Jump("cozinha")     
 
-    imagebutton:
-          xpos 1490
-          ypos 200
-          idle "porta kk idle.png"
-          hover "porta kk hover.png" 
-          action Jump("banheirao")   
+    #imagebutton:
+         # xpos 1490
+         # ypos 200
+          #idle "porta kk idle.png"
+         # hover "porta kk hover.png" 
+         # action Jump("banheirao")   
 
     imagebutton:
           xpos 263
@@ -477,7 +568,7 @@ label sala_siririca:
         show krab a at center with fade:
             zoom 0.75
         
-        k "O que você quer agora, Bob Esponja? Tá vendo que estou OCUPADO CONTANDO MEU DINHEI... digo, fazendo a contabilidade do restaurante!"
+        k "O que você quer agora rapaz? Tá vendo que estou OCUPADO CONTANDO MEU DINHEI... digo, fazendo a contabilidade do restaurante!"
         $ visitou_sala_siririca = True
     else:
         show krab a at center with fade:

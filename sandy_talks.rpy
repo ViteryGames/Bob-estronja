@@ -1,5 +1,6 @@
-# sandy_talks.rpy - Arquivo contendo apenas os diálogos e sequências para as cenas com Sandy
 
+# Som para as gozadas - reutilizando o som existente
+define audio.gozada = "audio/porra.mp3"
 init python:
     def obter_dialogo_peitos():
         # Retorna um diálogo aleatório para quando Sandy mostra os peitos
@@ -617,7 +618,7 @@ init python:
                 ["bob", "Me fode com força, quero sentir você me rasgando."],
                 ["", "Você a penetra violentamente, puxando seu cabelo"],
                 ["bob", "ISSO! ASSIM! DESTRÓI MINHA BUCETINHA CARALHOO!"],
-                ["bob", "Toma essa rola, vadia! O Bob Esponja aqui é outro agora, caralho!"],
+                ["bob", "Toma essa rola, vadia! O Bob Esperma aqui é outro agora, caralho!"],
                 ["", "Você bate na bunda dela enquanto mete com força"],
                 ["sd", "Me bate mais! Me xinga! Pelos cornos do diabo, eu amo isso!"],
                 ["bob", "Vou encher esse útero texano de porra!"],

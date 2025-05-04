@@ -15,7 +15,8 @@ screen bobCasas:
         ypos 180
         idle "abacaxi idle.png"
         hover "abacaxi.png" 
-        action Jump("salabob") 
+        # Modificação: verificar horário antes de ir para a casa
+        action Jump("verificar_horario_casa") 
 
     imagebutton:
         xpos 735
@@ -31,6 +32,17 @@ screen bobCasas:
         idle "preda idle.png"
         hover "preda hover.png" 
         action Jump("preda")
+
+# Nova label para verificar o horário antes de ir para a casa
+label verificar_horario_casa:
+    # Se for após 20h, vai direto para quanaite
+    if hora_do_dia >= 20:
+        # Desativa o mapa quando entra na casa
+        $ mapa_disponivel = False
+        jump quanaite
+    else:
+        # Durante o dia, vai para a sala normalmente
+        jump salabob
 
 # Mensagem quando tenta entrar na casa da Lula Molusco
 screen casa_trancada_message():

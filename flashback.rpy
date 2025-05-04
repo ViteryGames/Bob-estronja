@@ -68,7 +68,7 @@ label landal:
     with vpunch
     
     hide fumaca_verde
-    show holandes at center with dissolve
+    show holandes metedor risada at center with dissolve
     play audio "laugh2.mp3" fadeout 2.0
     
     h "HAHAHAHA! Vejam só o que temos aqui!"

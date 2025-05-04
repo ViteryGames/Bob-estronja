@@ -9,7 +9,7 @@ label vaginapodi:
      # xalign 0.5      # 0.5 = centro, 0.0 = esquerda, 1.0 = direita
      # yalign 0.7      # 0.5 = centro, 0.0 = topo, 1.0 = base
 
-  p"Oi Bob Esporra.{w}"  
+  p"Oi Bob Esperma{w}"  
   window hide
   $ renpy.pause(1)
 
@@ -107,7 +107,7 @@ label preda:
     # Patrick aparece
     show pautrick
     
-    p "Ei, Bob Esponja! Que surpresa te ver aqui!"
+    p "Ei, Bob Esperma! Que surpresa te ver aqui!"
     
     # Menu de interação principal
     menu patrick_opcoes:
@@ -174,7 +174,7 @@ label preda:
             jump patrick_opcoes
             
         "Ir embora":
-            p "Tchau, Bob Esponja! Volte quando quiser!"
+            p "Tchau! Volte quando quiser!"
             jump room4
 
 # Conversas simples com Patrick

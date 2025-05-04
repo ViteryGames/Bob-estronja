@@ -1,12 +1,78 @@
-# Definição da animação no início do arquivo
+# comcumbina.rpy - Modificado com sistema de aceleração de animações e sons
+
+# Definição das animações no início do arquivo
 image keket_sally_anim:
     "keket sally"
-    pause 0.3
+    pause 0.4
     "keket sally 2"
-    pause 0.3
+    pause 0.4
     "keket sally 3"
-    pause 0.3
+    pause 0.4
     repeat
+
+# Versão rápida da animação para o clímax
+image keket_sally_anim_rapida:
+    "keket sally"
+    pause 0.2
+    "keket sally 2"
+    pause 0.2
+    "keket sally 3"
+    pause 0.2
+    repeat
+
+# Animação para sexo vaginal
+image vagina_sally_anim:
+    "vagina sally 1"
+    pause 0.4
+    "vagina sally 2"
+    pause 0.4
+    "vagina sally 3"
+    pause 0.4
+    repeat
+
+# Versão rápida da animação para sexo vaginal
+image vagina_sally_anim_rapida:
+    "vagina sally 1"
+    pause 0.2
+    "vagina sally 2"
+    pause 0.2
+    "vagina sally 3"
+    pause 0.2
+    repeat
+
+# Animação para sexo anal
+image cuzin_sally_anim:
+    "cuzin sally 1"
+    pause 0.4
+    "cuzin sally 2"
+    pause 0.4
+    "cuzin sally 3"
+    pause 0.4
+    repeat
+
+# Versão rápida da animação para sexo anal
+image cuzin_sally_anim_rapida:
+    "cuzin sally 1"
+    pause 0.2
+    "cuzin sally 2"
+    pause 0.2
+    "cuzin sally 3"
+    pause 0.2
+    repeat
+
+# Animação para gozada
+image gozada_puta_anim:
+    "gozada puta 1"
+    pause 0.2
+    "gozada puta 2"
+    pause 0.2
+    repeat
+
+# Definição dos sons para cada ação sexual
+define audio.boquete_som = "audio/boquete.mp3"
+define audio.vagina_som = "audio/vagina.mp3"
+define audio.anal_som = "audio/anal.mp3"
+define audio.gozada_som = "audio/porra.mp3"
 
 label comcumbinas:
     # Verifica se a variável 'visitou_puta' para o dia atual já existe
@@ -30,7 +96,6 @@ label comcumbinas:
         jump sou_puta
 
 label sou_puta:
-
     menu:
         "Boquete $15":
             if money >= 15:
@@ -75,59 +140,86 @@ label sou_puta:
 
 label putitas:
     if escolha == "quequet":
-        show keket_sally_anim:
-            zoom 1.0  # Tamanho maior
-            xalign 0.5  # Centraliza horizontalmente (centro da tela)
-            yalign 0.5  # Centraliza verticalmente (meio da tela)
-        "Puta Piranha" "Vou te chupar bem gostoso agora seu safado"
+        # Iniciar com a animação imediatamente e o som
+        play sound audio.boquete_som loop
+        show keket_sally_anim
         
-        "Puta Piranha" "Hmm, nunca chupei uma esponja antes... você tem um gosto único!"
-        
+        # Primeiras 5 falas com velocidade normal
+        "Puta" "Vou te chupar bem gostoso agora seu safado"
+        "Puta" "Hmm, nunca chupei uma esponja antes... você tem um gosto único!"
         b "Cala a boca e chupa logo, porra! Não paguei pra ficar ouvindo merda."
-        
-        "Puta Piranha" "Nossa, que agressividade! O Bob Esponja da TV parece tão gentil..."
-        
+        "Puta" "Caralho, quanta agressividade! "
         b "Não me compare com essa merda de TV. Chupa logo antes que eu perca a paciência!"
         
-        "Puta Piranha" "Tá bom, tá bom... Vou usar minha língua de um jeito especial..."
+        # Mudar para animação mais rápida após 5 falas
+        hide keket_sally_anim
+        show keket_sally_anim_rapida
         
+        "Puta" "Tá bom, tá bom... Vou usar minha língua de um jeito especial..."
         b "Aí sim, cadela! Assim que eu gosto... Puta que pariu, que boquinha gostosa!"
-        
-        "Puta Piranha" "Você está gostando? Nunca imaginei que o Bob Esponja fosse tão... intenso."
+        "Puta" "Você está gostando? Nunca imaginei que o Bob Esperma fosse tão... intenso."
         
         # Menu para escolher onde gozar
         menu:
             "Gozar na boca":
-                # Primeira gozada com shake
+                # Parar o som de boquete
+                stop sound
+                
+                # Esconder a animação de boquete
+                hide keket_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou gozar, porra! Engole tudo, sua vadia!"
                 
-                # Segunda gozada com shake
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Hmm... que gosto diferente! Nunca provei nada parecido!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Continua chupando! Ainda não acabei, cacete!"
                 
                 "Puta Piranha" "Uau! Nunca vi tanto... hm... 'líquido de esponja' antes! Como você consegue produzir tanto?"
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
             
             "Gozar na cara":
-                # Primeira gozada com shake
+                # Parar o som de boquete
+                stop sound
+                
+                # Esconder a animação de boquete
+                hide keket_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou gozar na sua cara, vadia! Se prepara!"
                 
-                # Segunda gozada com shake
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Ai, está entrando no meu olho! Arde!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Cala a boca e continua! Quero te deixar toda melada!"
                 
                 "Puta Piranha" "Meu Deus, quanta coisa! Vou precisar de um banho depois disso..."
-        
-        hide keket_sally_anim
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
         
         menu:
             "Voltar para o quarto":
@@ -137,55 +229,87 @@ label putitas:
                 jump quanaite
         
     elif escolha == "pussy":
+        # Iniciar com a animação imediatamente e o som
+        play sound audio.vagina_som loop
+        show vagina_sally_anim
+        
+        # Primeiras 5 falas com velocidade normal
         sd "Come minha buceta seu gordo tarado!"
-        
         "Puta Piranha" "Ainda bem que você trouxe camisinha! Segurança em primeiro lugar!"
-        
         "Puta Piranha" "Isso, enfia tudo! Quem diria que uma esponja teria esse equipamento todo!"
-        
         b "Cala a boca e rebola nessa pica, sua vadia! Vou te arrombar toda!"
-        
         "Puta Piranha" "Nossa, Bob! Você está tão... diferente do que imaginei!"
         
+        # Mudar para animação mais rápida após 5 falas
+        hide vagina_sally_anim
+        show vagina_sally_anim_rapida
+        
         b "Não me chama de Bob, porra! Sou mais homem que qualquer um nesse mar de merda!"
-        
         "Puta Piranha" "Como devo te chamar então?"
-        
         b "Não precisa me chamar de nada. Só geme bem gostoso e faz seu trabalho, cacete!"
-        
         "Puta Piranha" "Nossa, estou sentindo você pulsar dentro de mim... você está diferente do que imaginei!"
         
         # Menu para escolher onde gozar
         menu:
             "Gozar dentro":
-                # Primeira gozada com shake
+                # Parar o som de vagina
+                stop sound
+                
+                # Esconder a animação de vagina
+                hide vagina_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou gozar dentro dessa buceta! Se prepare, vadia!"
                 
-                # Segunda gozada com shake
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Isso! Enche toda minha bucetinha!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Caralho! Toma tudo, sua piranha!"
                 
                 "Puta Piranha" "Meu Deus! Estou sentindo escorrer pelas minhas pernas... nunca vi tanta porra assim!"
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
             
             "Gozar fora":
-                # Primeira gozada com shake
+                # Parar o som de vagina
+                stop sound
+                
+                # Esconder a animação de vagina
+                hide vagina_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou tirar e gozar em você! Quero te encher de porra!"
                 
-                # Segunda gozada com shake  
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Isso, jorra tudo em mim! Me deixa toda melada!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Toma, sua vagabunda! Olha quanta porra!"
                 
                 "Puta Piranha" "Nossa! Você é uma máquina de produzir... nunca vi nada igual!"
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
         
         menu:
             "Voltar para o quarto":
@@ -195,56 +319,91 @@ label putitas:
                 jump quanaite
         
     elif escolha == "cuzin":
+        # Iniciar com a animação imediatamente e o som
+        play sound audio.anal_som loop
+        show cuzin_sally_anim
+        
+        # Primeiras 5 falas com velocidade normal
         show kradeath
         sd "To com o cuzin coçando pra vc!!!"
-        
         "Puta Piranha" "Ainda bem que você trouxe camisinha! No cuzinho é ainda mais importante!"
-        
         "Puta Piranha" "Isso, mete tudo no meu cuzinho! Uma esponja como você deve saber como limpar todos os cantinhos!"
-        
         b "Vou destruir esse rabo, piranha! Nunca mais vai sentar direito depois de mim!"
-        
         "Puta Piranha" "Nossa, você é maior do que parece! Vai com calma!"
         
+        # Esconder kradeath
+        hide kradeath
+        
+        # Mudar para animação mais rápida após 5 falas
+        hide cuzin_sally_anim
+        show cuzin_sally_anim_rapida
+        
         b "Calma o caralho! Paguei caro por esse cu, vou usar do jeito que eu quiser!"
-        
         "Puta Piranha" "Ai! Tá doendo! Você não é nada como na TV!"
-        
         b "A TV é uma mentira, sua burra! A vida real é muito diferente, porra!"
-        
         "Puta Piranha" "Tá... tá bom! Ai, isso! Achou o ponto certo! Continua assim!"
         
         # Menu para escolher onde gozar
         menu:
             "Gozar dentro":
-                # Primeira gozada com shake
+                # Parar o som de anal
+                stop sound
+                
+                # Esconder a animação de anal
+                hide cuzin_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou gozar nesse cu apertado! Segura firme, cachorra!"
                 
-                # Segunda gozada com shake
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Meu Deus! Eu consigo sentir jorrando dentro de mim!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Ainda não acabou! Toma mais, vadia!"
                 
                 "Puta Piranha" "Nossa! Você está me enchendo! Como consegue produzir tanto assim?"
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
             
             "Gozar fora":
-                # Primeira gozada com shake
+                # Parar o som de anal
+                stop sound
+                
+                # Esconder a animação de anal
+                hide cuzin_sally_anim_rapida
+                
+                # Mostrar animação de gozada
+                show gozada_puta_anim
+                
+                # Primeira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Vou tirar e gozar nas suas costas! Se prepara!"
                 
-                # Segunda gozada com shake
+                # Segunda gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 "Puta Piranha" "Isso! Me enche de porra! Quero sentir tudo!"
                 
-                # Terceira gozada com shake
+                # Terceira gozada com shake e som
                 with hpunch
+                play sound audio.gozada_som
                 b "Toma mais, sua vadia! Olha quanto leite!"
                 
                 "Puta Piranha" "Meu Deus! Você parece uma mangueira de tanta coisa que sai daí!"
+                
+                # Esconder a animação de gozada
+                hide gozada_puta_anim
         
         menu:
             "Voltar para o quarto":
@@ -253,139 +412,74 @@ label putitas:
                 $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
                 jump quanaite
         
-    elif escolha == "flirt":
-        show kradeath
-        sd "tambem com esse piru grosso... tambem com esse pau gostosum"
-        
-        "Puta Piranha" "Uau, você é mesmo cheio de surpresas! Nunca imaginei que você fosse tão... dotado."
-        
-        b "Claro que sou, sua imbecil. Acha que eu seria fraco que nem esse bobão da TV?"
-        
-        "Puta Piranha" "Percebi! Esse seu 'equipamento' não combina muito com sua aparência de desenho infantil."
-        
-        b "Tá me chamando de infantil, sua vadia? Vou te mostrar o que é ser homem de verdade!"
-        
-        "Puta Piranha" "Não foi isso que eu quis dizer! É que você é tão diferente do que mostram..."
-        
-        b "Cala essa boca e vem me chupar logo! Não paguei pra ficar de papo."
-        
-        "Puta Piranha" "Você é bem grosseiro para alguém que faz desenho animado..."
-        
-        b "E você fala demais pra uma puta barata! Agora pega nessa rola e faz seu trabalho!"
-        
-        "Puta Piranha" "Tudo bem, tudo bem! Não precisa ficar nervoso..."
-        
-        # Menu para escolher onde gozar
-        menu:
-            "Gozar na boca":
-                # Primeira gozada com shake
-                with hpunch
-                b "Vou gozar na sua boca! Abre bem, cachorra!"
-                
-                # Segunda gozada com shake
-                with hpunch
-                "Puta Piranha" "Hmm... tem gosto de... algas marinhas?"
-                
-                # Terceira gozada com shake
-                with hpunch
-                b "Engole tudo! Não deixa cair uma gota!"
-                
-                "Puta Piranha" "Nunca vi ninguém gozar tanto assim! Você é uma máquina de produção!"
-            
-            "Gozar na cara":
-                # Primeira gozada com shake
-                with hpunch
-                b "Vou gozar na sua cara toda! Se prepara!"
-                
-                # Segunda gozada com shake
-                with hpunch
-                "Puta Piranha" "Nossa! Está espirando para todo lado!"
-                
-                # Terceira gozada com shake
-                with hpunch
-                b "Toma mais, sua safada! Fica bem melada!"
-                
-                "Puta Piranha" "Meu Deus! Vou precisar de um banho agora! Tem até no meu cabelo!"
-        
-        menu:
-            "Voltar para o quarto":
-                # Marca como visitado para o dia atual
-                $ hora_do_dia += 2 
-                $ setattr(store, "visitou_puta_dia_{}".format(saida), True)
-                jump quanaite
-                
     elif escolha == "conversar":
         $ dialogo_random = renpy.random.randint(1, 4)
         
         if dialogo_random == 1:
-            "Puta Piranha" "Então, você realmente é o Bob Esponja? Parece um pouco... diferente do que mostram na TV."
+            "Puta" "Então, você realmente é o Bob Esperma? Parece um pouco... diferente"
             
-            b "Claro que sou, sua burra! Só que a TV mostra o que eles querem que você veja. A realidade é outra, entende?"
+            b "Claro que eu sou, sua puta idiota! Não ta vendo a esponja na minha cabeça?"
             
-            "Puta Piranha" "E essa cicatriz no seu pescoço? Parece que sua cabeça foi... costurada?"
+            "Puta" "E essa cicatriz no seu pescoço? Parece que sua cabeça foi... costurada?"
             
             b "Não é da sua conta! Foi um... acidente. Agora cala a boca sobre isso antes que eu me irrite!"
             
-            "Puta Piranha" "Você é ator agora? Pensei que trabalhasse no Siri Cascudo."
-            
-            b "Trabalho onde eu quiser, porra! Quem você pensa que é pra ficar me questionando?"
-            
-            "Puta Piranha" "E o que aconteceu com sua voz? Lembro que era mais... aguda."
+            "Puta" "E o que aconteceu com sua voz? Lembro que era mais... aguda."
             
             b "Fumo três maços por dia, cacete! Qualquer problema com isso? Agora chega de perguntas idiotas!"
             
         elif dialogo_random == 2:
-            "Puta Piranha" "Essa casa é mesmo um abacaxi de verdade? Como funciona isso?"
+            "Puta" "Essa casa é mesmo um abacaxi de verdade? Como funciona isso?"
             
             b "É só uma merda de casa, porra! O que tem pra entender? Caiu de um navio e pronto!"
             
-            "Puta Piranha" "E não apodrece? Estamos debaixo d'água há anos..."
+            "Puta" "E não apodrece? Estamos debaixo d'água há anos..."
             
             b "Tenho cara de biólogo marinho, sua imbecil? É só uma casa, não enche o saco!"
             
-            "Puta Piranha" "Fascinante. E todos esses móveis? Também caíram de navios?"
+            "Puta" "Fascinante. E todos esses móveis? Também caíram de navios?"
             
             b "Alguns eu roubei, outros eu 'encontrei'. Algum problema com isso, princesa?"
             
-            "Puta Piranha" "Você tem um gosto peculiar para decoração. Essas cortinas de flores são... únicas."
+            "Puta" "Você tem um gosto peculiar para decoração. Essas cortinas de flores são... únicas."
             
             b "Não escolhi essa merda! Já estava aqui quando che... quer dizer, sempre foi assim. Agora cala a boca!"
             
         elif dialogo_random == 4:
-            "Puta Piranha" "O que foi esse barulho? Parece que veio daquele armário."
+            "Puta" "O que foi esse barulho? Parece que veio daquele armário."
             
             b "Porra nenhuma! É só o vento, caralho! Não tem nada nesse armário!"
             
-            "Puta Piranha" "Não parecia o vento... Soou mais como alguém gemendo."
+            "Puta" "Não parecia o vento... Soou mais como alguém gemendo."
             
             b "Tá me chamando de mentiroso, sua vadia? Já disse que não é nada! É o Gary, meu caracol de merda!"
             
-            "Puta Piranha" "Se você diz... Posso dar uma olhada nele? Adoro animais de estimação!"
+            "Puta" "Se você diz... Posso dar uma olhada nele? Adoro animais de estimação!"
             
             b "NÃO TOCA NESSE ARMÁRIO, PORRA! Quer dizer... ele morde estranhos. É perigoso."
             
-            "Puta Piranha" "Tudo bem, tudo bem! Não precisa gritar, querido."
+            "Puta" "Tudo bem, tudo bem! Não precisa gritar, querido."
             
             b "Não sou seu 'querido', entendeu? Agora esquece esse armário ou vamos ter problemas!"
             
         elif dialogo_random == 5:
-            "Puta Piranha" "Espera, o que é aquilo no chão? Parece... sangue?"
+            "Puta" "Espera, o que é aquilo no chão? Parece... sangue?"
             
             b "Sangue? Tá louca? É ketchup, sua imbecil! Derrubei quando tava comendo."
             
-            "Puta Piranha" "Ketchup? Por que teria ketchup espalhado pelo chão?"
+            "Puta" "Ketchup? Por que teria ketchup espalhado pelo chão?"
             
             b "Porque sou um porco imundo, tá legal? Tenho cara de faxineiro por acaso?"
             
-            "Puta Piranha" "E por que o ketchup faz uma trilha até aquele armário ali?"
+            "Puta" "E por que o ketchup faz uma trilha até aquele armário ali?"
             
             b "Eu guardei a porra do hambúrguer lá dentro! Algum problema com isso?"
             
-            "Puta Piranha" "Isso não me parece muito higiênico para alguém que trabalha com comida."
+            "Puta" "Isso não me parece muito higiênico para alguém que trabalha com comida."
             
             b "Tá preocupada com higiene? Você transa com qualquer um por dinheiro! Agora cala a boca!"
             
-        "Puta Piranha" "Bem, já conversamos bastante. Quer fazer outra coisa agora?"
+        "Puta" "Bem, já conversamos bastante. Quer fazer outra coisa agora?"
         
         menu:
             "Voltar para o menu anterior":
