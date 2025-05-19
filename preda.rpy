@@ -94,7 +94,7 @@ image casa_patrick = "images/casa_patrick.jpg"
 
 # Label principal para interagir com Patrick
 label preda:
-    scene casa_patrick
+    scene bg preda
     
     "Você chega à casa de Patrick."
     
@@ -175,7 +175,7 @@ label preda:
             
         "Ir embora":
             p "Tchau! Volte quando quiser!"
-            jump room4
+            call screen bobCasas
 
 # Conversas simples com Patrick
 label conversar_patrick:

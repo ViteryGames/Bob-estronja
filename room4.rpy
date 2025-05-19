@@ -33,6 +33,8 @@ label room4:
 
   show batavo1 at Transform(xzoom=-1):
     zoom 1.3 xpos 1000 ypos 200 
+    
+  play music "bobesponja.mp3" fadein 2.0
 
   "O que eu devo fazer agora?"
 
@@ -61,6 +63,7 @@ label chegada_em_casa:
     while True:
         menu:
             "Ir para a sala":
+                $ hora_do_dia += 1
                 play sound som_opcao
                 $ escolha = "cozinha"
                 jump salabob
@@ -133,6 +136,7 @@ label salabob:
 
       menu:
             "Voltar para o quarto":
+              $ hora_do_dia += 1
               scene quartobob
 
               show batavo1 at Transform(xzoom=-1) with fade:
@@ -141,6 +145,7 @@ label salabob:
               jump chegada_em_casa
 
             "Assistir TV":
+                $ hora_do_dia += 1
                 if not tv_quebrada:
                     # Primeira vez assistindo TV
                     # Mostrar a animação do peixe âncora
@@ -156,7 +161,7 @@ label salabob:
                     hide tv_reporter_anim
                     show tv_batavo_soco
                     
-                    play sound "punch.wav" volume 0.8
+                    play sound "soco.mp3" volume 0.8
                     with hpunch
                     
                     b "CALA A BOCA, PORRA!"
@@ -191,6 +196,7 @@ label salabob:
                 jump opcoes
 
             "Sair":
+                 $ hora_do_dia += 1
                  play sound som_opcao
                    # Ativa o mapa quando o jogador sai de casa
                  $ saida += 1  # Incrementa a variável a cada clique

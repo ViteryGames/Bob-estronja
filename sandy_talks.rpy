@@ -95,12 +95,12 @@ init python:
             [
                 ["sd", "Você quer mesmo ver meus peitos, Bob? Diabos, você tá tão esquisito hoje..."],
                 ["sd", "Bem... acho que não faz mal mostrar rapidinho... mas você tá diferente..."],
-                ["sd", "Só não conte pra ninguém, ok? Caralho, para de me olhar desse jeito!"],
+                ["sd", "Só não conte pra ninguém, ok? "],
                 ["", "Sandy tira a parte de cima do biquíni lentamente..."],
                 ["sd", "E então... o que acha? Por que tá com essa cara de tarado?"],
-                ["sd", "Sei que não são grandes como os das sereias... puta merda, você nunca me olhou assim antes..."],
-                ["sd", "Você tá gostando do que vê? Tá babando, Bob... caralho, isso não é normal..."],
-                ["", "Sandy percebe o olhar estranho e predatório de Bob"],
+                ["sd", "Sei que não são grandes como os das sereias...  Mas agrada muitos vaqueiros por aí"],
+                ["sd", "Você tá gostando do que vê? Tá babando, Bob..."],
+                ["", "Sandy percebe o seu olhar estranho e predatório"],
                 ["sd", "Seu olhar tá me deixando excitada... mas também meio assustada, vaqueiro..."],
                 ["", "Você nota os mamilos dela ficando mais rígidos"],
                 ["sd", "Ahhh... Isso é tão... diferente... diabos, você tá tão estranho hoje..."],
@@ -109,18 +109,18 @@ init python:
             
             # Segunda vez
             [
-                ["sd", "Quer ver meus peitos de novo, seu safadinho? Puta merda, você tá tão diferente do antigo Bob..."],
-                ["sd", "Estive pensando nisso desde a última vez... você é como um Bob novo e selvagem, parceiro..."],
+                ["sd", "Quer ver meus peitos de novo, seu safadinho? "],
+                ["sd", "Estive pensando nisso desde a última vez... "],
                 ["", "Sandy remove a parte superior do biquíni com mais confiança desta vez"],
-                ["sd", "Gosta do que vê? Quer tocá-los? Caralho, você nunca foi tão direto assim antes..."],
-                ["", "Suas mãos grosseiras tocam os peitos da Sandy com avidez"],
-                ["sd", "Mmm... Isso é bom... mas você tá tão bruto, Bob... que porra aconteceu contigo?"],
+                ["sd", "Gosta do que vê?"],
+                ["", "Sandy balança seus melões texanos só pra você"],
+                ["sd", "Puxa vida! Você tá olhando como um gato pro peixe! Nunca te vi assim!"],
                 ["sd", "Pode apertar um pouco mais... nossa, não precisava ser tão forte, seu animal!"],
-                ["", "Ela guia suas mãos pelos seus mamilos, surpresa com sua agressividade"],
-                ["sd", "Ahh! Isso! Continue... mas com menos força, seu bruto texano!"],
+                ["", "Ela nota sua rola ficando dura"],
+                ["sd", "Estou vendo que seu cavalinho também está animado!"],
                 ["", "Sandy começa a respirar mais rápido"],
-                ["sd", "Ohhh Bob... Você me faz sentir coisas incríveis! Caralho, quem é você realmente?"],
-                ["", "Ela treme levemente enquanto um pequeno orgasmo percorre seu corpo"]
+                ["sd", "Por hoje é so cowboy"],
+                ["", "Sandy guarda seus peitos de volta no bikini"]
             ],
             
             # Terceira vez - NOVA VERSÃO COM VARIAÇÕES

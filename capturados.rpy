@@ -7,6 +7,7 @@ default dia = 1  # Nova variável para contar os dias
 label capturados:
   # Desabilita o mapa durante toda a cena noturna
   $ mapa_disponivel = False
+  play music "mimindo.mp3" fadein 2.0
   
   scene locker
 

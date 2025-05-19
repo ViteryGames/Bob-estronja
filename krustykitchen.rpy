@@ -6,19 +6,19 @@ label menu_principal_siririca:
             
         "Pedir um aumento":
             $ escolha = "aumento"
-            # Esconder krab a antes de ir para aumento_siririca
+            # Esconder krab a antes de ir para aumento_siririca para evitar sobreposição
             hide krab a
             jump aumento_siririca
             
         "Perguntar sobre o Rola Molusco":
             $ escolha = "molusco"
-            # Esconder krab a antes de ir para info_molusco
+            # Esconder krab a antes de ir para info_molusco para evitar sobreposição
             hide krab a
             jump info_molusco
             
         "Mexer na gaveta secreta":
             $ escolha = "gaveta"
-            # Esconder krab a antes de ir para gaveta_secreta
+            # Esconder krab a antes de ir para gaveta_secreta para evitar sobreposição
             hide krab a
             jump gaveta_secreta
             
@@ -26,7 +26,12 @@ label menu_principal_siririca:
             call screen lobbykk with fade
 
 label conversa_siririca:
-    # Aqui não precisamos esconder nada, apenas mostrar krab4
+    # Esconder qualquer Siririca anterior antes de mostrar um novo
+    hide krab a
+    hide krab happy
+    hide krab4
+    
+    # Mostrar apenas krab4 na posição correta
     show krab4:
         zoom 0.6 xpos 1000 ypos 400
     
@@ -37,7 +42,7 @@ label conversa_siririca:
 label menu_conversa_siririca:
     menu:
         "Perguntar sobre a história do Siri Cracudo":
-            # Esconder krab4 apenas (que é o que está na tela) e mostrar happy
+            # Esconder Siririca anterior para evitar sobreposição
             hide krab4
             show krab happy:
                 zoom 0.6 xpos 1000 ypos 400
@@ -53,11 +58,9 @@ label menu_conversa_siririca:
             jump menu_conversa_siririca
         
         "Perguntar sobre a filha dele":
-            # Se krab happy estiver na tela, esconder apenas ele
-            # Se krab4 estiver na tela, não precisamos esconder
-            # Como não sabemos qual está, usando conditional hiding
-            if renpy.showing("krab happy"):
-                hide krab happy
+            # Esconder qualquer Siririca atual antes de mostrar outro
+            hide krab happy
+            hide krab4
             show krab a:
                 zoom 0.6 xpos 1000 ypos 400
             
@@ -65,13 +68,13 @@ label menu_conversa_siririca:
             
             k "Você anda seguindo a Pérola por aí? Se eu descobrir que você está dando em cima dela..."
             
-            # Esconder apenas o que está na tela (krab4) e mostrar kradeath
-            hide krab4
+            # Esconder krab a antes de mostrar kradeath
+            hide krab a
             show kradeath
             
             k "VOU ENFIAR ESSE HAMBÚRGUER DE SIRI NO SEU..."
             
-            # Esconder kradeath e mostrar krab a
+            # Esconder kradeath antes de mostrar krab a novamente
             hide kradeath
             show krab a:
                 zoom 0.6 xpos 1000 ypos 400
@@ -81,11 +84,9 @@ label menu_conversa_siririca:
             jump menu_conversa_siririca
         
         "Falar sobre o tempo":
-            # Esconder o que estiver na tela (krab a ou krab happy) e mostrar krab4
-            if renpy.showing("krab a"):
-                hide krab a
-            elif renpy.showing("krab happy"):
-                hide krab happy
+            # Esconder qualquer Siririca atual antes de mostrar krab4
+            hide krab a
+            hide krab happy
             show krab4:
                 zoom 0.6 xpos 1000 ypos 400
             
@@ -96,40 +97,51 @@ label menu_conversa_siririca:
             jump menu_conversa_siririca
         
         "Fazer outra coisa":
-            # Esconder o que estiver na tela e mostrar krab a
-            if renpy.showing("krab4"):
-                hide krab4
-            elif renpy.showing("krab happy"):
-                hide krab happy
+            # Esconder qualquer Siririca atual antes de voltar
+            hide krab happy
+            hide krab4
+            hide krab a
+            
+            # Mostrar krab a centralizado para o menu principal
             show krab a at center:
                 zoom 0.75
             
             jump menu_principal_siririca
             
         "Voltar":
+            # Esconder tudo antes de voltar ao lobby
+            hide krab happy
+            hide krab4
+            hide krab a
             call screen lobbykk with fade
 
 # Adicionar nova variável padrão para rastrear se a ideia já foi sugerida
 default sugeriu_promocao_batata = False
 
 label aumento_siririca:
-    # Mostrar kradeath (não precisamos esconder nada aqui)
+    # Esconder qualquer Siririca atual antes de mostrar kradeath
+    hide krab a
+    hide krab4
+    hide krab happy
+    
+    # Mostrar kradeath em posição adequada
     show kradeath
     
     k "HAHAHAHAHAHA!"
     
-    # Esconder kradeath e mostrar krab4
+    # Esconder kradeath antes de mostrar krab4
     hide kradeath
-    show krab4:
+    show krab lsmile:
         zoom 0.6 xpos 1000 ypos 400
     
     k "Essa foi boa, rapaz. AUMENTO? No Siri Cracudo?"
     
     menu:
         "Insistir no aumento":
-            # Esconder o que está na tela (krab4) e mostrar kradeath
-            hide krab4
-            show kradeath
+            # Esconder krab4 antes de mostrar kradeath
+            hide krab lsmile
+            show kradeath:
+                zoom 0.8 xpos 960 ypos 500  # Posição ajustada
             
             k "ESCUTA AQUI SEU PEDAÇO DE ESPONJA INÚTIL!"
             
@@ -140,12 +152,12 @@ label aumento_siririca:
             $ money -= 5
             "Seu Siririca multou você em 5 dólares por insubordinação!"
             
-            # Esconder antes de voltar ao menu
+            # Esconder kradeath antes de voltar ao menu
             hide kradeath
             jump menu_principal_siririca
         
         "Oferecer trabalhar mais horas":
-            # Esconder krab4 e mostrar krab happy
+            # Esconder krab4 antes de mostrar krab happy
             hide krab4
             show krab happy:
                 zoom 0.6 xpos 1000 ypos 400
@@ -159,13 +171,13 @@ label aumento_siririca:
             $ money += 2
             "Você ganhou 2 dólares como 'incentivo'!"
             
-            # Esconder antes de voltar ao menu
+            # Esconder krab happy antes de voltar ao menu
             hide krab happy
             jump menu_principal_siririca
         
         # A opção só aparece se ainda não foi sugerida
         "Sugerir uma promoção 'Traga sua batata e pague 2x mais'" if not sugeriu_promocao_batata:
-            # Esconder krab4 e mostrar krab happy
+            # Esconder krab4 antes de mostrar krab happy
             hide krab4
             show krab happy:
                 zoom 0.6 xpos 1000 ypos 400
@@ -182,29 +194,37 @@ label aumento_siririca:
             # Marcar que a ideia já foi sugerida
             $ sugeriu_promocao_batata = True
             
-            # Esconder antes de voltar ao menu
+            # Esconder krab happy antes de voltar ao menu
             hide krab happy
             jump menu_principal_siririca
         
         "Fazer outra coisa":
-            # Esconder krab4 e mostrar krab a
+            # Esconder krab4 antes de voltar
             hide krab4
+            
+            # Mostrar krab a para o menu principal
             show krab a at center:
                 zoom 0.75
             
             jump menu_principal_siririca
             
         "Voltar":
+            # Esconder tudo antes de voltar ao lobby
+            hide krab4
             call screen lobbykk with fade
 
 label info_molusco:
-    # Mostrar krab4 diretamente
-    show krab4:
+    # Esconder qualquer Siririca atual antes de mostrar krab4
+    hide krab a
+    hide krab happy
+    
+    # Mostrar krab4 na posição correta
+    show krab sus:
         zoom 0.6 xpos 1000 ypos 400
     
-    k "Aquele tentáculos inútil? O que tem ele?"
+    k "Aquele punheteiro inútil? O que tem ele?"
     
-    k "Passa o dia inteiro reclamando e tocando aquela flauta irritante!"
+    k "Passa o dia inteiro reclamando e xingando os clientes pelas costas!"
     
     k "Mas ele é barato, então eu mantenho por aqui..."
     
@@ -217,9 +237,9 @@ label info_molusco:
             jump menu_principal_siririca
         
         "Sugerir demitir o Lula Molusco":
-            # Esconder krab4 e mostrar krab happy
-            hide krab4
-            show krab happy:
+            # Esconder krab4 antes de mostrar krab happy
+            hide krab sus
+            show krab madtalk:
                 zoom 0.6 xpos 1000 ypos 400
             
             k "E pagar dois salários? Tá maluco?"
@@ -234,30 +254,38 @@ label info_molusco:
                     
                     k "Não vou demitir ele e contratar outro funcionário quando posso explorar DOIS de uma vez!"
                     
-                    # Esconder antes de voltar ao menu
-                    hide krab happy
+                    # Esconder krab happy antes de voltar ao menu
+                    hide krab madtalk
                     jump menu_principal_siririca
                 
                 "Não, melhor não":
                     k "É o que eu pensava. Volte ao trabalho!"
                     
-                    # Esconder antes de voltar ao menu
+                    # Esconder krab happy antes de voltar ao menu
                     hide krab happy
                     jump menu_principal_siririca
         
         "Fazer outra coisa":
-            # Esconder krab4 e mostrar krab a
+            # Esconder krab4 antes de voltar
             hide krab4
+            
+            # Mostrar krab a para o menu principal
             show krab a at center:
                 zoom 0.75
             
             jump menu_principal_siririca
             
         "Voltar":
+            # Esconder tudo antes de voltar ao lobby
+            hide krab4
             call screen lobbykk with fade
 
 label gaveta_secreta:
-    # Não precisamos esconder nada aqui, pois a cena muda naturalmente
+    # Esconder qualquer Siririca atual antes de continuar
+    hide krab a
+    hide krab4
+    hide krab happy
+    
     "Enquanto Seu Siririca está distraído, você se esgueira até a gaveta secreta do escritório"
     
     menu:
@@ -274,8 +302,8 @@ label gaveta_secreta:
                     
                     "De repente, um alarme dispara!"
                     
-                    show kradeath at center with moveinright:
-                        zoom 0.9
+                    # Mostrar kradeath na posição correta
+                    show kradeath at center with moveinright
                     
                     k "SEU LADRÃOZINHO DE MEIA TIGELA!"
                     
@@ -288,13 +316,14 @@ label gaveta_secreta:
                     $ money = 0
                     "Seu Siririca confiscou todo o seu dinheiro como punição!"
                     
-                    # Esconder antes de voltar ao menu
+                    # Esconder kradeath antes de voltar ao menu
                     hide kradeath
                     jump menu_principal_siririca
                 
                 "Fechar a gaveta rapidamente":
                     "Você fecha a gaveta bem a tempo"
                     
+                    # Mostrar krab a na posição correta
                     show krab a at center with moveinright:
                         zoom 0.75
                     
@@ -302,7 +331,7 @@ label gaveta_secreta:
                     
                     menu:
                         "Só vim limpar a poeira, chefe!":
-                            # Esconder krab a e mostrar krab happy
+                            # Esconder krab a antes de mostrar krab happy
                             hide krab a
                             show krab happy:
                                 zoom 0.6 xpos 1000 ypos 400
@@ -311,12 +340,12 @@ label gaveta_secreta:
                             
                             k "Continue assim que um dia você talvez ganhe um aumento de meio centavo!"
                             
-                            # Esconder antes de voltar ao menu
+                            # Esconder krab happy antes de voltar ao menu
                             hide krab happy
                             jump menu_principal_siririca
                         
                         "Procurando canetas para a cozinha":
-                            # Esconder krab a e mostrar krab4
+                            # Esconder krab a antes de mostrar krab4
                             hide krab a
                             show krab4:
                                 zoom 0.6 xpos 1000 ypos 400
@@ -327,7 +356,7 @@ label gaveta_secreta:
                             
                             k "Use carvão ou tinta de lula como todo mundo!"
                             
-                            # Esconder antes de voltar ao menu
+                            # Esconder krab4 antes de voltar ao menu
                             hide krab4
                             jump menu_principal_siririca
                 
@@ -340,6 +369,7 @@ label gaveta_secreta:
         "Melhor não arriscar":
             "Você decide que não vale a pena arriscar sua vida por curiosidade"
             
+            # Mostrar krab a na posição correta
             show krab a at center with moveinleft:
                 zoom 0.75
             
@@ -347,12 +377,12 @@ label gaveta_secreta:
             
             k "Volte para a cozinha AGORA! Tem clientes esperando!"
             
-            # Esconder antes de voltar ao menu
+            # Esconder krab a antes de voltar ao menu
             hide krab a
             jump menu_principal_siririca
         
         "Fazer outra coisa":
-            # Mostrar krab a diretamente
+            # Mostrar krab a diretamente na posição correta
             show krab a at center:
                 zoom 0.75
             

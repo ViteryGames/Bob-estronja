@@ -2,23 +2,23 @@ screen xerequinha:
     # Informações básicas com tema submarino - lado esquerdo
     text "Money = [money]" xpos 50 ypos 50 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
     text "Tempo = [hora_do_dia]h" xpos 50 ypos 100 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
-    text "Saida = [saida]" xpos 50 ypos 150 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
-    text "Dia = [dia]" xpos 50 ypos 200 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
+    #text "Saida = [saida]" xpos 50 ypos 150 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
+    text "Dia = [dia]" xpos 50 ypos 150 size 50 color "#8CEFFD" outlines [(2, "#0066CC", 0, 0), (4, "#003366", 1, 1)]
     
     # Mostra a quantidade de camisinhas com efeito de contorno - lado esquerdo
-    $ qnt_camisinhas = inventario.count(14)
-    if qnt_camisinhas > 0:
-        text "Camisinhas = [qnt_camisinhas]/5" xpos 50 ypos 200 size 50 color "#FF99CC" outlines [(2, "#CC0066", 0, 0), (4, "#990033", 1, 1)]
+    #$ qnt_camisinhas = inventario.count(14)
+    #if qnt_camisinhas > 0:
+        #text "Camisinhas = [qnt_camisinhas]/5" xpos 50 ypos 200 size 50 color "#FF99CC" outlines [(2, "#CC0066", 0, 0), (4, "#990033", 1, 1)]
     
     # Mostra a quantidade de nozes com efeito de contorno - lado esquerdo
-    $ qnt_nozes = inventario.count(3)
-    if qnt_nozes > 0:
-        text "Nozes = [qnt_nozes]/10" xpos 50 ypos 250 size 50 color "#DDBB77" outlines [(2, "#996633", 0, 0), (4, "#663300", 1, 1)]
+    #$ qnt_nozes = inventario.count(3)
+    #if qnt_nozes > 0:
+        #text "Nozes = [qnt_nozes]/10" xpos 50 ypos 250 size 50 color "#DDBB77" outlines [(2, "#996633", 0, 0), (4, "#663300", 1, 1)]
     
     # Mostra a quantidade de águas-vivas capturadas - lado esquerdo
-    $ qnt_aguas_vivas = inventario.count(21)
-    if qnt_aguas_vivas > 0:
-        text "Águas-vivas = [qnt_aguas_vivas]" xpos 50 ypos 300 size 50 color "#FF80BF" outlines [(2, "#CC0066", 0, 0), (4, "#990033", 1, 1)]
+    #$ qnt_aguas_vivas = inventario.count(21)
+    #if qnt_aguas_vivas > 0:
+        #text "Águas-vivas = [qnt_aguas_vivas]" xpos 50 ypos 300 size 50 color "#FF80BF" outlines [(2, "#CC0066", 0, 0), (4, "#990033", 1, 1)]
     
     # Botões para Mapa e Inventário - lado direito
     vbox:

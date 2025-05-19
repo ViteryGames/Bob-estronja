@@ -154,7 +154,12 @@ label sair_da_sandy:
     scene black with dissolve
     "Você deixa a casa da Sandy..."
     
-    jump room4  # Volta para a casa do Bob
+    # Verifica se é a primeira vez que o jogador está saindo da casa da Sandy
+    if ja_visitou_sandy and ultimo_dia_acao_sexual == -1:
+        $ ultimo_dia_acao_sexual = 0  # Marca que já teve a primeira visita
+        jump room4  # Vai para room4 na primeira vez
+    else:
+        jump explorar_sandy  # Volta para a opção de explorar como já estava no código
 
 # Conversa simples com a Sandy
 label conversar_sandy:

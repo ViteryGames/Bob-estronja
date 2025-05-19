@@ -9,13 +9,13 @@ image fumaca_verde:
     easein 0.5 zoom 1.0 alpha 0.8
     
 image holandes_normal:
-    "holandes.png"  # Adicione esta imagem aos seus recursos
+    "holandes garrafa.png"  # Adicione esta imagem aos seus recursos
     zoom 0.8
     xalign 0.5
     yalign 0.5
 
 image holandes_risada:
-    "holandes_risada.png"  # Adicione esta imagem aos seus recursos
+    "holandes metedor risada.png"  # Adicione esta imagem aos seus recursos
     zoom 0.8
     xalign 0.5
     yalign 0.5
@@ -68,7 +68,7 @@ label landal:
     with vpunch
     
     hide fumaca_verde
-    show holandes metedor risada at center with dissolve
+    show holandes_risada with dissolve
     play audio "laugh2.mp3" fadeout 2.0
     
     h "HAHAHAHA! Vejam só o que temos aqui!"
@@ -77,20 +77,20 @@ label landal:
     with hpunch
     
     h "ALGUÉM NOVO NA FENDA DO BIQUÍNI, HEIN?!"
-    
+    hide holandes_risada
     show holandes_normal
     
     h "Todo novo morador recebe... um PRESENTE!"
     
     b "E quem é você? Uma bichona verde flutuante?"
 
-    hide holandes
+    hide holandes_normal
     show holandes direita
     
     h "BICHONA?! Eu sou O HOLANDÊS METEDOR seu obeso do caralho!!"
     
     # Movimento da garrafa flutuando
-    show holandes_normal at right with ease
+    hide holandes direita
     show garrafa at center with moveinbottom
     
     h "Este mapa mostra tudo o que vc precisa pra explorar esta merda de cidade!"
@@ -104,13 +104,15 @@ label landal:
     with hpunch
     
     b "Do que você está falando? É claro que sou o Bob sua bichona de tranças! Mariquinha boiola marica"
-    
+    hide holandes_normal
+    hide holandes direita
     show holandes_risada
     
     h "HAHAHA! Eu gosto do seu... estilo. Mais um motivo para te dar este mapa."
     
     h "Há lugares... INTERESSANTES marcados nele! Use com sabedoria seu gordo broxa!"
     
+    hide holandes_risada
     "O Holandês Metedor deixa a garrafa flutuando no ar."
     
     show holandes_normal:
@@ -124,6 +126,8 @@ label landal:
     "A risada do Holandês Voador ecoa enquanto ele desaparece..."
     
     b "Que porra foi essa?"
+
+    "Você adquiriu o MAPA, estará disponível sempre que sair de casa no canto superior direito."
     
     # Definir variável para ativar novos locais no mapa
     $ tem_mapa_holandes = True

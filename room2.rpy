@@ -136,6 +136,7 @@ label siricas:
 label cozinha:
   # Esconder a interface xerequinha durante a cozinha
   hide screen xerequinha
+
   
   scene kitchen 
 
@@ -512,10 +513,12 @@ label lobbykk:
  play music "siricracudo.mp3" fadein 2.0
 
  screen lobbykk: 
+     
 
+      
     add "lobbykrab.png"  
     on "show" action Play("music", "siricracudo.mp3", fadein=2.0)
-     
+    use xerequinha 
 
 
     imagebutton:
@@ -571,7 +574,7 @@ label sala_siririca:
         k "O que você quer agora rapaz? Tá vendo que estou OCUPADO CONTANDO MEU DINHEI... digo, fazendo a contabilidade do restaurante!"
         $ visitou_sala_siririca = True
     else:
-        show krab a at center with fade:
+        show krab fine at center with fade:
             zoom 0.75
 
     jump menu_principal_siririca

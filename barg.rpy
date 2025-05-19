@@ -1,6 +1,5 @@
 label barg: 
     hide screen xerequinha
-    $ hora_do_dia += 5
     
     scene barganinha:
       zoom 1.2
@@ -256,4 +255,4 @@ screen loja():
                 textbutton "Próxima >" action Function(proxima_pagina) sensitive pagina_atual < total_paginas xpadding 20 ypadding 10  # Aumentado o padding
             
             # Botão para sair da loja
-            textbutton "Sair da Loja" action [SetVariable("hora_do_dia", hora_do_dia + 5), Show("xerequinha"), Jump("quanaite")] xalign 0.5 xpadding 30 ypadding 15  # Aumentado o padding
+            textbutton "Sair da Loja" action [SetVariable("hora_do_dia", hora_do_dia + 2), Show("xerequinha"), Jump("explorar_loja")] xalign 0.5 xpadding 30 ypadding 15  # Aumentado o padding

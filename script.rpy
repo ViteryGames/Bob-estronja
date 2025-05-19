@@ -101,7 +101,7 @@ label avancar_tempo():
 label start:
     
     #Toca a música "bobesponja.ogg"
-    play music "bobespon.mp3" fadein 2.0
+    play music "bobesponja.mp3" fadein 2.0
 default contrap1 = False
 default nugget = False 
 default mainmap = False
@@ -122,11 +122,11 @@ default mapa_disponivel = False
 label cutscene:
   scene cuts1
 
-  "Bob Esponja" "Turururu"  # Vai usar bubbles.mp3 porque tem nome de personagem
+  "Bob Esperma" "Turururu"  # Vai usar bubbles.mp3 porque tem nome de personagem
 
   show cuts2
 
-  "Bob Esponja" "AHHHHHHHHHHH"  # Vai usar bubbles.mp3 porque tem nome de personagem
+  "Bob Esperma" "AHHHHHHHHHHH"  # Vai usar bubbles.mp3 porque tem nome de personagem
   
   show screen xerequinha 
 

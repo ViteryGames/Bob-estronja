@@ -1,22 +1,26 @@
 # sandyanim.rpy - Animações para cenas com Sandy (modificado)
-
+image sandy_peitos:
+    "images/sandy_peitos.png"
+    zoom 1.0
+    xalign 0.5
+    yalign 0.5
 # Animações para punheta - Versão normal
 image sandy_punheta_anim:
-    "images/sandy_punheta_1.webp"
+    "images/sandy_punheta_1.png"
     pause 0.4  # Ritmo normal
-    "images/sandy_punheta_2.webp"
+    "images/sandy_punheta_2.png"
     pause 0.4
-    "images/sandy_punheta_3.webp"
+    "images/sandy_punheta_3.png"
     pause 0.4
     repeat
 
 # Animações para punheta - Versão rápida (clímax)
 image sandy_punheta_anim_rapida:
-    "images/sandy_punheta_1.webp"
+    "images/sandy_punheta_1.png"
     pause 0.15  # Ritmo mais rápido
-    "images/sandy_punheta_2.webp"
+    "images/sandy_punheta_2.png"
     pause 0.15
-    "images/sandy_punheta_3.webp"
+    "images/sandy_punheta_3.png"
     pause 0.15
     repeat
 
@@ -109,6 +113,9 @@ image nozes_cuzinho_anim_rapida:
 define audio.gozada = "audio/porra.mp3"
 
 # Ver os peitos da Sandy (nível 1+)
+# Ver os peitos da Sandy (nível 1+)
+# Ver os peitos da Sandy (nível 1+)
+# Ver os peitos da Sandy (nível 1+)
 label ver_peitos_sandy:
     # Verificar se já viu 3 vezes - se sim, mostrar submenu
     if vezes_mostrou_peitos >= 3:
@@ -152,10 +159,24 @@ label ver_peitos_sandy:
     
     show sandy envergonhada at center
     
-    # Mostrar a sequência de diálogos
+    # Primeiro diálogo (antes de mostrar os peitos) - apenas 2 linhas
     $ i = 0
-    while i < len(sequencia):
-        $ quem_fala, texto = sequencia[i]
+    while i < 2 and i < len(sequencia):
+        $ item = sequencia[i]
+        
+        # Verificar se o item é uma lista aninhada (caso das variações da 3ª vez)
+        if isinstance(item, list) and len(item) > 0 and isinstance(item[0], list):
+            # Se for uma lista de variações, escolhe a primeira variação
+            $ item = item[0]
+        
+        # Agora processar normalmente
+        if isinstance(item, list) and len(item) >= 2:
+            $ quem_fala = item[0]
+            $ texto = item[1]
+        else:
+            $ quem_fala = "sd"
+            $ texto = str(item)
+        
         if quem_fala == "sd":
             sd "[texto]"
         elif quem_fala == "bob":
@@ -163,7 +184,50 @@ label ver_peitos_sandy:
         else:
             "[texto]"
         $ i += 1
+    
+    # Esconder Sandy com roupas
+    hide sandy envergonhada
+    
+    # MOSTRAR OS PEITOS - Direto e simples
+    show sandynua:
+        zoom 0.55
+        xalign 0.48
+        yalign 0.8
+    
+    # Pausa suficiente para ver a imagem
+    pause 2.0
+    
+    # Resto do diálogo (depois de mostrar os peitos)
+    while i < len(sequencia):
+        $ item = sequencia[i]
         
+        # Verificar se o item é uma lista aninhada (caso das variações da 3ª vez)
+        if isinstance(item, list) and len(item) > 0 and isinstance(item[0], list):
+            # Se for uma lista de variações, escolhe a primeira variação
+            $ item = item[0]
+        
+        # Agora processar normalmente
+        if isinstance(item, list) and len(item) >= 2:
+            $ quem_fala = item[0]
+            $ texto = item[1]
+        else:
+            $ quem_fala = "sd"
+            $ texto = str(item)
+        
+        if quem_fala == "sd":
+            sd "[texto]"
+        elif quem_fala == "bob":
+            bob "[texto]"
+        else:
+            "[texto]"
+        $ i += 1
+    
+    # Esconder a imagem dos peitos quando terminar o diálogo
+    hide sandynua
+    
+    # Voltar para Sandy vestida
+    show sandy satisfeita at center
+    
     $ vezes_mostrou_peitos += 1
     $ hora_do_dia += 2
     
@@ -184,9 +248,22 @@ label ver_peitos_rapido:
     show sandy seducao at center
     sd "Quer ver meus peitos de novo? Aqui está um rápido vislumbre..."
     
-    scene sandy_peitos_rapido with dissolve
-    pause 1.5
+    # Esconder Sandy vestida
+    hide sandy seducao
     
+    # MOSTRAR OS PEITOS - Direto e simples
+    show sandynua:
+        zoom 0.55
+        xalign 0.48
+        yalign 0.8
+    
+    # Pausa para ver a imagem
+    pause 2.0
+
+    # Esconder peitos
+    hide sandynua
+    
+    # Voltar à cena normal
     scene bg casa_sandy with dissolve
     show sandy satisfeita at center
     
@@ -194,7 +271,6 @@ label ver_peitos_rapido:
     
     $ hora_do_dia += 2
     jump finalizar_sandy  # Vai para o final da interação
-
 # Ver os peitos com zoom (sequência especial após 3 vezes)
 label ver_peitos_zoom:
     # Marcar que uma ação sexual foi realizada hoje
@@ -215,8 +291,12 @@ label ver_peitos_zoom:
     pause 1.0
     scene sandy_barriga with dissolve
     pause 1.0
-    scene sandy_peitos with dissolve
-    pause 1.0
+    
+    # Finalmente mostrar os peitos - DIRETO E SIMPLES
+    show sandybb
+    
+    # Pausa para apreciar a imagem
+    pause 2.0
     
     # Pausa para que o jogador veja os peitos completamente
     "Sandy mostra seus peitos para você. Clique para continuar."
@@ -226,7 +306,7 @@ label ver_peitos_zoom:
     show sandy satisfeita at center
     
     $ hora_do_dia += 2
-    jump finalizar_sandy  # Vai para o final da interação
+    jump finalizar_sandy  # Vai para o final da interaçãoação
 
 # Ver a buceta da Sandy (nível 5+ e após 3 punhetas)
 label ver_buceta_sandy:
