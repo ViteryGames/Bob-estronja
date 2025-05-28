@@ -157,8 +157,11 @@ label opbob1_menu_opcoes:
          
 label quanaite:
  $ mapa_disponivel = False
+
  # O mapa continua indisponível em quanaite
  scene quartobob noite 
+
+ play music "mimindo.mp3" fadein 2.0
 
  show batavo1 at Transform(xzoom=-1):
     zoom 1.3 xpos 900 ypos 200 

@@ -2,16 +2,16 @@
 # Locais externos com opções de entrada nos locais
 
 # Imagens das áreas durante o dia
-image area_siricascudo_dia = "images/siricascudo_exterior.jpg"
-image area_sandy_dia = "images/sandy_exterior.jpg"
-image area_aguasvivas_dia = "images/aguasvivas_exterior.jpg"
-image area_loja_dia = "images/loja_exterior.jpg"
+image area_siricascudo_dia = "images/kk.jpg"
+image area_sandy_dia = "images/casasandyy.png"
+image area_aguasvivas_dia = "images/jellyfieldings.png"
+image area_loja_dia = "images/bangnday.png"
 
 # Imagens das áreas durante a noite
 image area_siricascudo_noite = "images/siricascudo_exterior_noite.jpg"
 image area_sandy_noite = "images/sandy_exterior_noite.jpg"
 image area_aguasvivas_noite = "images/aguasvivas_exterior_noite.jpg"
-image area_loja_noite = "images/loja_exterior_noite.jpg"
+image area_loja_noite = "images/bangnnight.png"
 
 # Variáveis para rastrear se o jogador já visitou um local
 default visitou_siricascudo = False

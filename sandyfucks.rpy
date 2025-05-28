@@ -110,37 +110,23 @@ image nozes_cuzinho_anim_rapida:
 # sandyfucks.rpy - Arquivo contendo os labels de conteúdo sexual com Sandy
 
 # Som para as gozadas
+# sandyfucks.rpy - Arquivo contendo os labels de conteúdo sexual com Sandy
+
+# Som para as gozadas
 define audio.gozada = "audio/porra.mp3"
 
 # Ver os peitos da Sandy (nível 1+)
-# Ver os peitos da Sandy (nível 1+)
-# Ver os peitos da Sandy (nível 1+)
-# Ver os peitos da Sandy (nível 1+)
 label ver_peitos_sandy:
-    # Verificar se já viu 3 vezes - se sim, mostrar submenu
+    # Verificar se já viu 3 vezes - se sim, ir direto para ver rapidamente
     if vezes_mostrou_peitos >= 3:
-        menu:
-            "Como você quer ver os peitos dela?"
-            
-            "Ver rapidamente":
-                # Verificar se já realizou ação sexual hoje
-                if ultimo_dia_acao_sexual == dia:
-                    show sandy seducao at center
-                    $ dialogo = obter_dialogo_recusa()
-                    sd "[dialogo]"
-                    jump mostrar_menu_sandy
-                else:
-                    jump ver_peitos_rapido
-                
-            "Ver de perto (sequência especial)":
-                # Verificar se já realizou ação sexual hoje
-                if ultimo_dia_acao_sexual == dia:
-                    show sandy seducao at center
-                    $ dialogo = obter_dialogo_recusa()
-                    sd "[dialogo]"
-                    jump mostrar_menu_sandy
-                else:
-                    jump ver_peitos_zoom
+        # Verificar se já realizou ação sexual hoje
+        if ultimo_dia_acao_sexual == dia:
+            show sandy seducao at center
+            $ dialogo = obter_dialogo_recusa()
+            sd "[dialogo]"
+            jump mostrar_menu_sandy
+        else:
+            jump ver_peitos_rapido
     
     # Verificar se já realizou ação sexual hoje
     if ultimo_dia_acao_sexual == dia:
@@ -271,69 +257,23 @@ label ver_peitos_rapido:
     
     $ hora_do_dia += 2
     jump finalizar_sandy  # Vai para o final da interação
-# Ver os peitos com zoom (sequência especial após 3 vezes)
-label ver_peitos_zoom:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = dia
-    
-    show sandy seducao at center
-    sd "Quer ver meus peitos de novo, né? Sei que você adora..."
-    sd "Vou mostrar pra você. Afinal, já estamos bem íntimos..."
-    
-    # Sequência de zoom dos pés aos peitos
-    scene black
-    "A câmera se aproxima lentamente de Sandy..."
-    
-    # Mostrar imagens em sequência - dos pés até os peitos
-    scene sandy_pes with dissolve
-    pause 1.0
-    scene sandy_pernas with dissolve
-    pause 1.0
-    scene sandy_barriga with dissolve
-    pause 1.0
-    
-    # Finalmente mostrar os peitos - DIRETO E SIMPLES
-    show sandybb
-    
-    # Pausa para apreciar a imagem
-    pause 2.0
-    
-    # Pausa para que o jogador veja os peitos completamente
-    "Sandy mostra seus peitos para você. Clique para continuar."
-    
-    # Retornar à cena normal
-    scene bg casa_sandy
-    show sandy satisfeita at center
-    
-    $ hora_do_dia += 2
-    jump finalizar_sandy  # Vai para o final da interaçãoação
+
+# Ver a buceta da Sandy (nível 5+ e após 3 punhetas)
+# Modificação para a label ver_buceta_sandy e ver_buceta_rapido
+# Este trecho deve substituir as partes correspondentes no arquivo sandyfucks.rpy
 
 # Ver a buceta da Sandy (nível 5+ e após 3 punhetas)
 label ver_buceta_sandy:
-    # Verificar se já viu 3 vezes - se sim, mostrar submenu
+    # Verificar se já viu 3 vezes - se sim, ir direto para ver rapidamente
     if vezes_mostrou_buceta >= 3:
-        menu:
-            "Como você quer ver a buceta dela?"
-            
-            "Ver rapidamente":
-                # Verificar se já realizou ação sexual hoje
-                if ultimo_dia_acao_sexual == dia:
-                    show sandy seducao at center
-                    $ dialogo = obter_dialogo_recusa()
-                    sd "[dialogo]"
-                    jump mostrar_menu_sandy
-                else:
-                    jump ver_buceta_rapido
-                
-            "Ver de perto (sequência especial)":
-                # Verificar se já realizou ação sexual hoje
-                if ultimo_dia_acao_sexual == dia:
-                    show sandy seducao at center
-                    $ dialogo = obter_dialogo_recusa()
-                    sd "[dialogo]"
-                    jump mostrar_menu_sandy
-                else:
-                    jump ver_buceta_zoom
+        # Verificar se já realizou ação sexual hoje
+        if ultimo_dia_acao_sexual == dia:
+            show sandy seducao at center
+            $ dialogo = obter_dialogo_recusa()
+            sd "[dialogo]"
+            jump mostrar_menu_sandy
+        else:
+            jump ver_buceta_rapido
     
     # Verificar se já realizou ação sexual hoje
     if ultimo_dia_acao_sexual == dia:
@@ -351,15 +291,20 @@ label ver_buceta_sandy:
     if quem_fala == "sd":
         sd "[texto]"
     
+    # Mostrar a imagem sandyxereta logo após o primeiro diálogo
+    hide sandy
+    show sandyxereta at center
+    
+    # Pausa para dar tempo de visualizar a imagem
+    pause 2.0
+    
     # Obter a sequência de diálogos conforme progresso
     $ indice = min(vezes_mostrou_buceta, 2)
     $ sequencia = obter_sequencia_buceta(indice)
     
-    show sandy seducao at center
-    
-    # Mostrar a sequência de diálogos até o penúltimo (antes do orgasmo)
+    # Mostrar a sequência de diálogos completa (sem menu de opções)
     $ i = 0
-    while i < len(sequencia) - 2:  # -2 para parar antes do orgasmo
+    while i < len(sequencia):
         $ quem_fala, texto = sequencia[i]
         if quem_fala == "sd":
             sd "[texto]"
@@ -369,53 +314,12 @@ label ver_buceta_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar enquanto vê
-    menu:
-        "O que você quer fazer?"
-        
-        "Se masturbar olhando":
-            bob "Vou gozar olhando pra você!"
-            sd "Vai, Bob! Goza olhando pra minha bucetinha!"
-            "Você se masturba furiosamente enquanto admira a Sandy."
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Toma isso, Sandy! Isso mesmo!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "Você continua se masturbando, liberando mais jatos."
-            
-            sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
-            
-        "Pedir para ela se masturbar":
-            bob "Quero ver você se tocando."
-            sd "Assim? Você gosta quando eu me toco?"
-            "Sandy começa a se masturbar para você, gemendo alto."
-            
-            # Primeira gozada com shake
-            with hpunch
-            "Sandy se contorce de prazer."
-            sd "Estou quase lá!"
-            
-            # Segunda gozada com shake
-            with hpunch
-            "Seus gemidos ficam mais intensos."
-            
-            # Completar com os últimos diálogos
-            $ i = len(sequencia) - 2
-            while i < len(sequencia):
-                $ quem_fala, texto = sequencia[i]
-                if quem_fala == "sd":
-                    sd "[texto]"
-                elif quem_fala == "bob":
-                    bob "[texto]"
-                else:
-                    "[texto]"
-                $ i += 1
-
+    # Esconder a imagem
+    hide sandyxereta
+    
+    # Voltar para Sandy vestida
+    show sandy satisfeita at center
+    
     $ hora_do_dia += 2
 
     # Incrementa o contador apenas se ainda não atingiu 3
@@ -439,118 +343,27 @@ label ver_buceta_rapido:
     show sandy seducao at center
     sd "Quer ver minha buceta de novo? Aqui está um rápido vislumbre..."
     
-    scene sandy_buceta_rapido with dissolve
-    pause 1.5
+    # Mostrar a imagem sandyxereta
+    hide sandy seducao
+    show sandyxereta at center
     
+    # Pausa para dar tempo de visualizar a imagem
+    pause 2.0
+    
+    # Esconder a imagem
+    hide sandyxereta
+    
+    # Voltar à cena normal
     scene bg casa_sandy with dissolve
     show sandy satisfeita at center
     
     sd "Gostou da visão rápida?"
     
-    # Opção de gozar enquanto vê
-    menu:
-        "O que você quer fazer?"
-        
-        "Se masturbar olhando":
-            bob "Vou gozar olhando pra você!"
-            sd "Vai, Bob! Goza olhando pra minha bucetinha!"
-            "Você se masturba furiosamente enquanto admira a Sandy."
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Ahhh! Que delícia!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "Você continua gozando, seu corpo tremendo."
-            
-            sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
-            
-        "Não fazer nada":
-            "Você apenas aprecia a visão por um momento."
-    
-    $ hora_do_dia += 2
-    jump finalizar_sandy  # Vai para o final da interação
-
-# Ver a buceta com zoom (sequência especial após 3 vezes)
-label ver_buceta_zoom:
-    # Marcar que uma ação sexual foi realizada hoje
-    $ ultimo_dia_acao_sexual = dia
-    
-    show sandy seducao at center
-    sd "Quer ver minha buceta de perto? Acho que já estamos íntimos o suficiente..."
-    
-    # Sequência de zoom
-    scene black
-    "A câmera se aproxima lentamente de Sandy..."
-    
-    # Mostrar imagens em sequência
-    scene sandy_pes with dissolve
-    pause 1.0
-    scene sandy_pernas with dissolve
-    pause 1.0
-    scene sandy_coxas with dissolve
-    pause 1.0
-    scene sandy_buceta with dissolve
-    pause 1.0
-    
-    # Pausa para que o jogador veja a buceta completamente
-    "Sandy mostra sua intimidade para você. Clique para continuar."
-    
-    # Opção de gozar enquanto vê
-    menu:
-        "O que você quer fazer?"
-        
-        "Se masturbar olhando":
-            bob "Vou gozar olhando pra você!"
-            sd "Vai, Bob! Goza olhando pra minha bucetinha!"
-            "Você se masturba furiosamente enquanto admira a Sandy."
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Toma isso, Sandy! É tudo pra você!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "O prazer é tão intenso que você mal consegue ficar em pé."
-            
-            sd "Nossa, quanto leite! Você realmente gostou do que viu, hein?"
-            
-        "Pedir para ela se masturbar":
-            bob "Quero ver você se tocando."
-            sd "Assim? Você gosta quando eu me toco?"
-            "Sandy começa a se masturbar para você, gemendo alto."
-            
-            scene sandy_buceta_masturbando with dissolve
-            pause 1.0
-            
-            # Primeira gozada com shake
-            with hpunch
-            "Sandy começa a se tocar mais rapidamente."
-            
-            # Segunda gozada com shake
-            with hpunch
-            "Seus gemidos se intensificam enquanto ela se aproxima do orgasmo."
-            
-            # Terceira gozada com shake
-            with hpunch
-            sd "Ahh! Estou... gozando!"
-            "O corpo de Sandy treme enquanto ela atinge o orgasmo."
-    
-    # Retornar à cena normal
-    scene bg casa_sandy
-    show sandy satisfeita at center
-    
     $ hora_do_dia += 2
     jump finalizar_sandy  # Vai para o final da interação
 
 # Pedir uma punheta (nível 3+)
-label punheta_sandy:
-    # Verificar se já realizou ação sexual hoje
+label punheta_sandy:   # Verificar se já realizou ação sexual hoje
     if ultimo_dia_acao_sexual == dia:
         show sandy seducao at center
         $ dialogo = obter_dialogo_recusa()
@@ -565,7 +378,7 @@ label punheta_sandy:
     $ sequencia = obter_sequencia_punheta(indice)
     
     # Iniciar com a animação imediatamente
-    scene bg casa_sandy
+    scene fodasandy
     show sandy_punheta_anim
     
     # Mostrar diálogos enquanto a animação está no ritmo normal
@@ -595,18 +408,16 @@ label punheta_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar
+    # Opção de gozar - Versão simplificada
     menu:
-        "Onde você quer gozar?"
-        
-        "Gozar na mão dela":
-            bob "Vou gozar na sua mão, Sandy!"
+        "Gozar":
+            bob "Vou gozar, Sandy!"
             
             # Esconder a animação de punheta
             hide sandy_punheta_anim_rapida
             
-            # Mostrar animação de gozada na mão
-            show gozada_peitos_anim
+            # Mostrar imagem de gozada
+            show sandypohadas at center
             
             # Primeira gozada com shake e som
             with hpunch
@@ -616,33 +427,11 @@ label punheta_sandy:
             # Segunda gozada com shake e som
             with hpunch
             play sound audio.gozada
-            "Sandy continua masturbando você enquanto o gozo escorre por seus dedos."
+            "Sandy continua te estimulando enquanto você goza."
             
-            # Esconder a animação de gozada
-            hide gozada_peitos_anim
-            
-        "Gozar no rosto dela":
-            bob "Vou gozar na sua cara!"
-            sd "O quê? Espera, eu não est--"
-            
-            # Esconder a animação de punheta
-            hide sandy_punheta_anim_rapida
-            
-            # Mostrar animação de gozada no rosto
-            show gozada_rosto_anim
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Toma isso na cara, Sandy!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "O primeiro jato atinge o rosto dela em cheio."
-            
-            # Esconder a animação de gozada
-            hide gozada_rosto_anim
+            # Esconder a imagem de gozada depois de um tempo
+            $ renpy.pause(2.0)
+            hide sandypohadas
     
     # Mostrar Sandy satisfeita
     show sandy satisfeita at center
@@ -677,7 +466,7 @@ label boquete_sandy:
     $ sequencia = obter_sequencia_boquete(indice)
     
     # Iniciar com a animação imediatamente
-    scene bg casa_sandy
+    scene fodasandy
     show sandy_boquete_anim
     
     # Mostrar diálogos enquanto a animação está no ritmo normal
@@ -707,53 +496,30 @@ label boquete_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar
+    # Opção de gozar - Versão simplificada
     menu:
-        "Onde você quer gozar?"
-        
-        "Gozar na boca":
-            bob "Vou gozar na sua boca, engole tudo!"
+        "Gozar":
+            bob "Vou gozar, Sandy!"
             
             # Esconder a animação de boquete
             hide sandy_boquete_anim_rapida
             
-            # Mostrar animação de gozada na boca
-            show gozada_boca_anim
+            # Mostrar imagem de gozada
+            show sandypohadas at center
             
             # Primeira gozada com shake e som
             with hpunch
             play sound audio.gozada
-            b "Isso mesmo! Engole tudo!"
+            b "Isso mesmo! Que delícia!"
             
             # Segunda gozada com shake e som
             with hpunch
             play sound audio.gozada
             "Você segura a cabeça dela enquanto continua gozando."
             
-            # Esconder a animação de gozada
-            hide gozada_boca_anim
-            
-        "Gozar no rosto":
-            bob "Vou gozar na sua cara!"
-            
-            # Esconder a animação de boquete
-            hide sandy_boquete_anim_rapida
-            
-            # Mostrar animação de gozada no rosto
-            show gozada_rosto_anim
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Toma na cara, Sandy!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "Você continua gozando enquanto ela fecha os olhos."
-            
-            # Esconder a animação de gozada
-            hide gozada_rosto_anim
+            # Esconder a imagem de gozada depois de um tempo
+            $ renpy.pause(2.0)
+            hide sandypohadas
     
     # Mostrar Sandy satisfeita
     show sandy satisfeita at center
@@ -789,7 +555,7 @@ label foder_buceta_sandy:
     $ sequencia = obter_sequencia_foder_buceta(indice)
     
     # Iniciar com a animação imediatamente
-    scene bg casa_sandy
+    scene fodasandy
     show sandy_buceta_anim
     
     # Mostrar diálogos enquanto a animação está no ritmo normal
@@ -819,54 +585,30 @@ label foder_buceta_sandy:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar
+    # Opção de gozar - Versão simplificada
     menu:
-        "Onde você quer gozar?"
-        
-        "Gozar dentro":
-            bob "Vou gozar dentro de você!"
-            sd "Sim! Me enche toda de porra!"
+        "Gozar":
+            bob "Vou gozar, Sandy!"
             
             # Esconder a animação de sexo
             hide sandy_buceta_anim_rapida
             
-            # Mostrar animação de gozada dentro
-            show gozada_buceta_anim
+            # Mostrar imagem de gozada
+            show sandypohadas at center
             
             # Primeira gozada com shake e som
             with hpunch
             play sound audio.gozada
-            b "Toma dentro, Sandy! Tô gozando!"
+            b "Isso! Tô gozando!"
             
             # Segunda gozada com shake e som
             with hpunch
             play sound audio.gozada
-            "Você continua metendo enquanto libera mais jatos dentro dela."
+            "Você continua metendo enquanto goza com força."
             
-            # Esconder a animação de gozada
-            hide gozada_buceta_anim
-            
-        "Gozar fora":
-            bob "Vou gozar fora!"
-            
-            # Esconder a animação de sexo
-            hide sandy_buceta_anim_rapida
-            
-            # Mostrar animação de gozada fora
-            show gozada_peitos_anim
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Toma isso, Sandy! Tá saindo muito!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "Você continua se masturbando sobre a barriga dela."
-            
-            # Esconder a animação de gozada
-            hide gozada_peitos_anim
+            # Esconder a imagem de gozada depois de um tempo
+            $ renpy.pause(2.0)
+            hide sandypohadas
     
     # Mostrar Sandy satisfeita
     show sandy satisfeita at center
@@ -888,7 +630,6 @@ label foder_buceta_sandy:
     
     jump finalizar_sandy  # Vai para o final da interação
 
-# Enfiar nozes no cuzinho (nível 15)
 # Enfiar nozes no cuzinho (nível 15)
 label nozes_cuzinho_sandy:
     # Verificar se já realizou ação sexual hoje
@@ -938,16 +679,14 @@ label nozes_cuzinho_sandy:
     
     # Opções para o clímax
     menu:
-        "O que você quer fazer?"
-        
-        "Gozar enquanto ela tem o orgasmo":
+        "Gozar":
             "Você se masturba furiosamente enquanto insere as nozes."
             
             # Esconder a animação de nozes
             hide nozes_cuzinho_anim_rapida
             
-            # Mostrar animação de gozada
-            show gozada_peitos_anim
+            # Mostrar imagem de gozada
+            show sandypohadas at center
             
             # Primeira gozada com shake e som
             with hpunch
@@ -971,33 +710,9 @@ label nozes_cuzinho_sandy:
                     "[texto]"
                 $ i += 1
             
-            # Esconder a animação de gozada
-            hide gozada_peitos_anim
-            
-        "Gozar em cima das nozes inseridas":
-            "Você se masturba e direciona para o cuzinho enquanto as nozes estão dentro."
-            
-            # Esconder a animação de nozes
-            hide nozes_cuzinho_anim_rapida
-            
-            # Mostrar animação de gozada nas nozes
-            show gozada_cuzinho_anim
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Vou gozar em cima das nozes, Sandy!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "O primeiro jato cobre as nozes inseridas."
-            
-            sd "Uau! Você tá molhando todas as nozes!"
-            "O líquido escorre entre as nozes inseridas no cuzinho da Sandy."
-            
-            # Esconder a animação de gozada
-            hide gozada_cuzinho_anim
+            # Esconder a imagem de gozada depois de um tempo
+            $ renpy.pause(2.0)
+            hide sandypohadas
     
     # Mostrar Sandy satisfeita
     show sandy satisfeita at center
@@ -1033,7 +748,7 @@ label comer_cuzinho:
     $ sequencia = obter_sequencia_cuzinho(indice)
     
     # Iniciar com a animação imediatamente
-    scene bg casa_sandy
+    scene fodasandy
     show sandy_cuzinho_anim
     
     # Mostrar diálogos enquanto a animação está no ritmo normal
@@ -1063,62 +778,32 @@ label comer_cuzinho:
             "[texto]"
         $ i += 1
     
-    # Opção de gozar
+    # Opção de gozar - Versão simplificada
     menu:
-        "Onde você quer gozar?"
-        
-        "Gozar dentro do cuzinho":
-            bob "Vou encher seu cu de porra!"
-            sd "SIM! GOZA DENTRO! INUNDA MEU CUZINHO!"
+        "Gozar":
+            bob "Vou gozar, Sandy!"
             
             # Esconder a animação de cuzinho
             hide sandy_cuzinho_anim_rapida
             
-            # Mostrar animação de gozada dentro do cuzinho
-            show gozada_cuzinho_anim
+            # Mostrar imagem de gozada
+            show sandypohadas at center
             
             # Primeira gozada com shake e som
             with hpunch
             play sound audio.gozada
-            b "Toma no cuzinho, Sandy! Tá saindo muito!"
+            b "Toma isso! Tô gozando muito!"
             
             # Segunda gozada com shake e som
             with hpunch
             play sound audio.gozada
-            "Você continua metendo enquanto solta mais jatos dentro dela."
+            "Você continua metendo enquanto libera jatos e mais jatos."
             
-            "Você bombeia jatos e mais jatos dentro do cuzinho da Sandy."
-            sd "Ahhhh! Tá tão quente dentro de mim!"
+            sd "Ahhhh! Tá tão quente! Que delícia!"
             
-            # Esconder a animação de gozada
-            hide gozada_cuzinho_anim
-            
-        "Gozar na cara dela":
-            bob "Quero gozar na sua cara!"
-            "Você retira rapidamente e corre para o rosto dela."
-            sd "O quê? Espera, acabou de sair do meu--"
-            
-            # Esconder a animação de cuzinho
-            hide sandy_cuzinho_anim_rapida
-            
-            # Mostrar animação de gozada na cara
-            show gozada_rosto_anim
-            
-            # Primeira gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            b "Engole essa porra toda, Sandy!"
-            
-            # Segunda gozada com shake e som
-            with hpunch
-            play sound audio.gozada
-            "O primeiro jato atinge o rosto dela em cheio."
-            
-            "Você explode violentamente na cara dela."
-            sd "Ugh! Isso é nojento... mas até que gostei..."
-            
-            # Esconder a animação de gozada
-            hide gozada_rosto_anim
+            # Esconder a imagem de gozada depois de um tempo
+            $ renpy.pause(2.0)
+            hide sandypohadas
     
     # Mostrar Sandy satisfeita
     show sandy satisfeita at center

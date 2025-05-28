@@ -48,6 +48,9 @@ label sandy:
 
 # Menu da Sandy separado em seu próprio label
 label mostrar_menu_sandy:
+    scene bg casa_sandy
+    show sandy normal at center
+
     menu:
         "O que você deseja fazer?"
         
@@ -120,18 +123,18 @@ label menu_favores_sexuais:
                 jump foder_buceta_sandy
         
         # Enfiar nozes no cuzinho - Disponível no nível 15+ se tiver nozes no inventário
-        "Enfiar nozes no cuzinho dela" if nivel_interesse_sandy >= 15:
-            if ultimo_dia_acao_sexual == dia:
-                show sandy seducao at center
-                $ dialogo = obter_dialogo_recusa()
-                sd "[dialogo]"
-                jump menu_favores_sexuais
-            elif 3 not in inventario:
-                show sandy normal at center
-                sd "Você precisa comprar nozes primeiro, seu bobinho!"
-                jump menu_favores_sexuais
-            else:
-                jump nozes_cuzinho_sandy
+        #"Enfiar nozes no cuzinho dela" if nivel_interesse_sandy >= 15:
+            #if ultimo_dia_acao_sexual == dia:
+                #show sandy seducao at center
+                #$ dialogo = obter_dialogo_recusa()
+                #sd "[dialogo]"
+                #jump menu_favores_sexuais
+            #elif 3 not in inventario:
+                #show sandy normal at center
+                #sd "Você precisa comprar nozes primeiro, seu bobinho!"
+                #jump menu_favores_sexuais
+           # else:
+                #jump nozes_cuzinho_sandy
         
         # Comer o cuzinho - Disponível apenas no nível 20+
         "Comer o cuzinho dela ([min(vezes_cuzinho, 3)]/3)" if nivel_interesse_sandy >= 20:

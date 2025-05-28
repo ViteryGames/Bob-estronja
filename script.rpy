@@ -120,19 +120,55 @@ default mapa_disponivel = False
 # Sobrescreve o comportamento padrão de menu para tocar somplay music :"bobesponja.ogg"
 
 label cutscene:
-  scene cuts1
+    # Começar com música de suspense
+    play music "susmusic.mp3" fadein 2.0
+    play audio "bubaus.mp3" fadein 1.0
+    
+    scene ingameburuba with fade
 
-  "Bob Esperma" "Turururu"  # Vai usar bubbles.mp3 porque tem nome de personagem
+    "Uh... o que?"
+    show cutscene2 with fade
+    
+    "O que é aquilo? Um abacaxi??!!"
+    
+    show cuts1
 
-  show cuts2
+    "Bob Esporra" "La lala lala"  # Vai usar bubbles.mp3 porque tem nome de personagem
 
-  "Bob Esperma" "AHHHHHHHHHHH"  # Vai usar bubbles.mp3 porque tem nome de personagem
-  
-  show screen xerequinha 
+    # Quando aparece o franky, tocar o grito
+    play audio "classicdrama.mp3"
+    play audio "gritobob.mp3" volume 0.18
+    show frankys with hpunch
 
+    "Bob Esporra" "AHHHHHHHHHHH"  # Vai usar bubbles.mp3 porque tem nome de personagem
+    
+    # Fade para tela preta após a última imagem
+    scene black with fade
+    
+    # Tocar o som de rasgasso na tela preta
+    play audio "rasgazzo.mp3"
+    # Aguardar um pouco para o som tocar
+    pause 5.0
 
- 
-jump room4
+    play audio "gritobob.mp3" volume 0.18
+    "Bob esporra" "NÃO! PARE! MINHAS ROUPAS! MEU ROSTO! O QUE ESTÁ FAZENDO!"
+    play audio "franklaugh.mp3"
+    "You" "CALA BOCA PORRA!"
+
+    scene black with fade
+    play audio "fewmom.mp3"
+
+    show fewmom
+
+    pause 3.0
+    
+    show screen xerequinha 
+    stop audio
+    stop sound
+    stop music
+    stop audio
+
+    jump room4
 
 if mainmap = True:
   call screen mapScreen

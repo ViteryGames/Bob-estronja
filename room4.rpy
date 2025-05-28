@@ -61,20 +61,43 @@ label chegada_em_casa:
     # Exibe o texto "Você chegou em casa" apenas uma vez
     # Inicia um loop de opções que sempre retorna ao menu inicial
     while True:
-        menu:
-            "Ir para a sala":
-                $ hora_do_dia += 1
-                play sound som_opcao
-                $ escolha = "cozinha"
-                jump salabob
+        # Menu com opção de créditos apenas após 20 dias
+        if dia >= 20:
+            menu:
+                "Ir para a sala":
+                    $ hora_do_dia += 1
+                    play sound som_opcao
+                    $ escolha = "cozinha"
+                    jump salabob
 
-            "checar bob esponja":
-                $ escolha = "bob"
-                jump opcoes
+                "Checar bob esponja":
+                    $ escolha = "bob"
+                    jump opcoes
 
-            "Investigar":
-                $ escolha = "inv"
-                jump opcoes
+                "Investigar":
+                    $ escolha = "inv"
+                    jump opcoes
+                    
+                "Ver Créditos": # Opção disponível após 20 dias
+                    play sound som_opcao
+                    "Você liga a televisão e vê um programa especial sobre a Fenda do Biquíni..."
+                    jump creditos
+        else:
+            # Menu normal para dias < 20
+            menu:
+                "Ir para a sala":
+                    $ hora_do_dia += 1
+                    play sound som_opcao
+                    $ escolha = "cozinha"
+                    jump salabob
+
+                "Checar bob esponja":
+                    $ escolha = "bob"
+                    jump opcoes
+
+                "Investigar":
+                    $ escolha = "inv"
+                    jump opcoes   
 
 label opcoes:
     # Aqui você pode personalizar o que acontece dependendo da escolha

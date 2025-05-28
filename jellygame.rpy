@@ -1,5 +1,5 @@
 # Mini-jogo de Caça às Águas-vivas (aguasvivas.rpy)
-# Versão com sistema de geleia de águas-vivas
+# Versão com sistema de geleia de águas-vivas e áudio
 
 # Variáveis de controle
 default jogou_minigame_antes = False  # Controla se o jogador já jogou pelo menos uma vez
@@ -15,6 +15,7 @@ init -10 python:
             self.velocidade = velocidade
             self.visivel = visivel
             self.id = id
+            self.som_tocado = False  # Controla se o som já foi tocado para esta água-viva
     
     def inicializar_aguas_vivas():
         global ag_pontos, ag_tempo_restante, ag_jogo_ativo, aguas_vivas
@@ -40,6 +41,7 @@ init -10 python:
                 # Quando sai da tela, volta para esquerda
                 q.x = -150
                 q.visivel = True
+                q.som_tocado = False  # Resetar controle de som
                 q.velocidade = renpy.random.randint(20, 30)
             else:
                 # Move água-viva
@@ -52,6 +54,8 @@ init -10 python:
             if q.id == id and q.visivel:
                 q.visivel = False
                 ag_pontos += 1
+                # Tocar som de captura em canal separado para não interromper o som das águas-vivas
+                renpy.music.play("whooshnet.mp3", channel="audio", loop=False)
                 break
     
     def adicionar_aguas_vivas_capturadas():
@@ -143,6 +147,9 @@ label minigame_aguasvivas:
 
 # Patrick pergunta sobre a rede de caça
 label patrick_jellyfish_intro:
+    # Tocar música do campo de águas-vivas
+    play music "hula.mp3" fadein 1.0
+    
     # Cena do Patrick com fundo de águas-vivas
     if renpy.has_image("jellos"):
         scene jellos
@@ -151,7 +158,7 @@ label patrick_jellyfish_intro:
         
     # Mostrar Patrick (assumindo que você tem uma imagem "pautrick")
     if renpy.has_image("pautrick"):
-        show pautrick
+        show patrick1
     
     p "Ei, Bob Esperma! Vamos caçar algumas águas-vivas hoje?"
     
@@ -199,7 +206,8 @@ label patrick_jellyfish_intro:
         p "Oh não! Você não tem uma rede de caça. Não podemos caçar águas-vivas assim."
         p "Vá até a loja do Sr. Siriguejo e compre uma rede. Volte quando estiver preparado!"
         
-        # Volta para o jogo principal
+        # Parar música e voltar para o jogo principal
+        stop music fadeout 1.0
         show screen xerequinha
         jump room4
 
@@ -216,14 +224,22 @@ label patrick_start_game:
         "Espera, preciso me preparar melhor...":
             p "Ok, volte quando estiver pronto para caçar águas-vivas!"
             $ hora_do_dia += 2
+            # Parar música e voltar para o jogo principal
+            stop music fadeout 1.0
             show screen xerequinha
             jump room4
 
 # Começa o jogo
 label start_jellyfish_game:
+    # Trocar para música do jogo
+    play music "jellygame.mp3" fadein 1.0
+    
+    # Tocar som das águas-vivas em loop durante o jogo
+    play sound "jellys.mp3" loop
+    
     # Esconder Patrick
-    if renpy.has_image("pautrick"):
-        hide pautrick
+    if renpy.has_image("patrick1"):
+        hide patrick1
     
     # Cena de fundo
     if renpy.has_image("jellos"):
@@ -252,6 +268,11 @@ label start_jellyfish_game:
     # Finaliza o jogo
     $ ag_jogo_ativo = False
     
+    # Parar som das águas-vivas e música do jogo
+    stop sound
+    stop music fadeout 1.0
+    play music "hula.mp3" fadein 1.0
+    
     # Esconde a tela de informações
     hide screen ag_game_info
     hide screen ag_game_screen
@@ -272,6 +293,8 @@ label patrick_end_game:
         p "Uau, Bob Esperma, você não pegou nenhuma água-viva? Talvez seja melhor praticar mais um pouco."
         p "Vamos voltar para casa e tentar outro dia."
         $ hora_do_dia += 5
+        # Parar música e voltar para o jogo principal
+        stop music fadeout 1.0
         show screen xerequinha
         jump room4
         
@@ -327,12 +350,12 @@ label patrick_end_game:
     
     menu:
         "Brincar com as águas-vivas um pouco":
-            p "Ah, isso vai ser divertido, Bob Esperma!"
+            p "Ah, isso vai ser divertivo, Bob Esperma!"
             
             scene jellos with dissolve
             
             if renpy.has_image("pautrick"):
-                show pautrick
+                show patrick1
             
             p "Olha como elas são gelatinosas e bonitinhas!"
             p "Cuidado para não levar uma ferroada!"
@@ -351,6 +374,8 @@ label patrick_end_game:
     # Limpa as telas
     $ limpar_telas_aguasvivas()
     $ hora_do_dia += 5
-    # Volta para o jogo principal
+    
+    # Parar música e voltar para o jogo principal
+    stop music fadeout 1.0
     show screen xerequinha
     jump room4
